@@ -1,14 +1,20 @@
-name: Pull Request Checks
+name: Release Checks
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  linting-and-testing:
+  github-publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+
+      - name: Checkout Repository & Submo
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -26,3 +32,4 @@ jobs:
 
       - name: Run Test & Coverage check
         run: npm run test
+        
