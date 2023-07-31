@@ -51,7 +51,7 @@
   },
   "name": "@dopplerhq/node-sdk",
   "description": "DopplerSDK",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "DopplerSDK",
   "dependencies": {},
   "type": "module"

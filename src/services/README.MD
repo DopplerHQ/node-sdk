@@ -395,8 +395,8 @@ const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
   const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
     accepts: 'application/json',
     includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 58532169,
-    secrets: 'dolore exercitation nostrud',
+    dynamicSecretsTtlSec: -23862531,
+    secrets: 'quis consectetur sunt mollit ullamco',
     includeManagedSecrets: true,
   });
   console.log(result);
@@ -481,12 +481,16 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.secrets.download('eiusmod', 'reprehenderit', {
-    format: 'json',
-    nameTransformer: 'dotnet-env',
-    includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 1800,
-  });
+  const result = await sdk.secrets.download(
+    'laboris minim sint fugiat pariatur',
+    'irure veniam sunt',
+    {
+      format: 'json',
+      nameTransformer: 'camel',
+      includeDynamicSecrets: true,
+      dynamicSecretsTtlSec: 1800,
+    },
+  );
   console.log(result);
 })();
 
@@ -562,9 +566,9 @@ const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 (async () => {
   const input = {
     config: 'CONFIG_NAME',
-    note: 'amet enim',
+    note: 'ut occaecat sit proident',
     project: 'PROJECT_NAME',
-    secret: 'proident',
+    secret: 'sed dolore dolor officia',
   };
   const result = await sdk.secrets.updateNote(input);
   console.log(result);
@@ -728,7 +732,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.environments.get('dolor', 'do deserunt quis Lorem');
+  const result = await sdk.environments.get('proident eu laboris', 'irure');
   console.log(result);
 })();
 
@@ -767,7 +771,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.environments.delete('tempor dolor aliquip in', 'eiusmod ut');
+  const result = await sdk.environments.delete('est', 'dolore laboris elit');
   console.log(result);
 })();
 
@@ -807,8 +811,8 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const input = { name: 'nulla minim', slug: 'consectetur sed in' };
-  const result = await sdk.environments.rename(input, 'occaecat', 'culpa fugiat nisi');
+  const input = { name: 'dolore sit dolore nostrud ex', slug: 'deserunt non ipsum' };
+  const result = await sdk.environments.rename(input, 'officia', 'enim consequat');
   console.log(result);
 })();
 
@@ -847,8 +851,8 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const input = { name: 'in consequat in', slug: 'commodo est elit laboris aliqua' };
-  const result = await sdk.environments.create(input, 'aute dolore eu');
+  const input = { name: 'sint et consectetur', slug: 'fugiat pariatur ipsum incididunt in' };
+  const result = await sdk.environments.create(input, 'culpa sint sit');
   console.log(result);
 })();
 
@@ -886,7 +890,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.environments.list('sint');
+  const result = await sdk.environments.list('officia');
   console.log(result);
 })();
 
@@ -959,7 +963,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.configs.list('commodo sunt esse quis', {
+  const result = await sdk.configs.list('in incididunt', {
     environment: 'Environment slug',
     page: 1,
     perPage: 20,
@@ -1295,7 +1299,7 @@ const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
   const input = {
     access: 'read',
     config: 'CONFIG_NAME',
-    expire_at: '1919-10-16T02:51:47.0Z',
+    expire_at: '1969-09-18T10:53:17.0Z',
     name: 'TOKEN_NAME',
     project: 'PROJECT_NAME',
   };
@@ -1406,10 +1410,10 @@ const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
   const input = {
-    config: 'aliqua ut',
-    dynamic_secret: 'velit in',
-    project: 'amet enim sint sunt fugiat',
-    ttl_sec: 61886594,
+    config: 'laborum',
+    dynamic_secret: 'laboris proident magna velit cupidatat',
+    project: 'culpa',
+    ttl_sec: -23344411,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -1442,10 +1446,10 @@ const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
   const input = {
-    config: 'nostrud minim ad sint nulla',
-    dynamic_secret: 'aliquip',
-    project: 'sint veniam',
-    slug: 'Ut minim sit',
+    config: 'elit cupidatat velit reprehenderit',
+    dynamic_secret: 'proident',
+    project: 'adipisicing et incididunt sed',
+    slug: 'et',
   };
   const result = await sdk.dynamicSecrets.revokeLease(input);
   console.log(result);
@@ -1478,7 +1482,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const input = { data: {}, name: 'enim', type_: 'in in' };
+  const input = { data: {}, name: 'amet anim ipsum', type_: 'laborum velit dolor' };
   const result = await sdk.integrations.create(input);
   console.log(result);
 })();
@@ -1542,7 +1546,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.integrations.get('eu commodo sint est consequat');
+  const result = await sdk.integrations.get('sint adipisicing sunt Excepteur');
   console.log(result);
 })();
 
@@ -1580,7 +1584,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.integrations.delete('occaecat exercitation ad minim');
+  const result = await sdk.integrations.delete('non commodo laboris pariatur');
   console.log(result);
 })();
 
@@ -1619,8 +1623,8 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const input = { data: 'est Duis cupidatat occaecat labore', name: 'fugiat ex Ut' };
-  const result = await sdk.integrations.update(input, 'consectetur culpa');
+  const input = { data: 'laboris ullamco', name: 'enim proident ut' };
+  const result = await sdk.integrations.update(input, 'non proident do');
   console.log(result);
 })();
 
@@ -1661,12 +1665,8 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const input = { data: {}, import_option: 'none', integration: 'in dolore' };
-  const result = await sdk.syncs.create(
-    input,
-    'esse Ut Duis aliquip commodo',
-    'ex Duis est reprehenderit dolore',
-  );
+  const input = { data: {}, import_option: 'none', integration: 'in eiusmod ullamco dolor dolor' };
+  const result = await sdk.syncs.create(input, 'dolor cupidatat dolor eiusmod enim', 'sint');
   console.log(result);
 })();
 
@@ -1706,11 +1706,7 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.syncs.get(
-    'adipisicing laboris est exercitation',
-    'pariatur cupidatat laboris',
-    'cillum mollit veniam cupidatat aute',
-  );
+  const result = await sdk.syncs.get('ad dolor', 'qui laboris sed velit', 'est sit id');
   console.log(result);
 })();
 
@@ -1751,7 +1747,12 @@ const DOPPLERSDK_BEARER_TOKEN = '';
 const sdk = new DopplerSDK(DOPPLERSDK_BEARER_TOKEN);
 
 (async () => {
-  const result = await sdk.syncs.delete('ad', 'ex ea', 'ea ut amet', true);
+  const result = await sdk.syncs.delete(
+    'nisi dolor',
+    'sunt quis in',
+    'Duis dolor ipsum non nostrud',
+    true,
+  );
   console.log(result);
 })();
 
