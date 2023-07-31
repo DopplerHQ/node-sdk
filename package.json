@@ -1,0 +1,58 @@
+{
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "browser": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "@types/node": "^17.0.23",
+    "@types/jest": "^27.4.1",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^27.5.1",
+    "nock": "^13.2.4",
+    "prettier": "^2.6.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "4.8.4",
+    "tsup": "^6.7.0"
+  },
+  "scripts": {
+    "build": "tsup-node src/index.ts --format cjs,esm --dts --clean",
+    "build:cjs": "tsc --module commonjs --outDir dist/commonjs",
+    "build:esm": "tsc --module esnext --outDir dist/esm",
+    "build:umd": "tsc --module umd --outDir dist/umd",
+    "build:all": "npm run build:cjs && npm run build:esm && npm run build:umd",
+    "lint": "eslint --ext .ts,.js ./src/ --resolve-plugins-relative-to .",
+    "lint:ci": "eslint --ext .ts,.js ./src/ --resolve-plugins-relative-to . --cache --quiet",
+    "lint:fix": "eslint --ext .ts,.js ./src/ --resolve-plugins-relative-to . --cache --fix",
+    "rebuild": "rm -rf dist/ && tsc",
+    "test": "jest --detectOpenHandles",
+    "watch": "rm -rf dist/ && tsc -w",
+    "version": "tsc --version"
+  },
+  "name": "@dopplerhq/node-sdk",
+  "description": "DopplerSDK",
+  "version": "1.0.0",
+  "author": "DopplerSDK",
+  "dependencies": {},
+  "type": "module"
+}
