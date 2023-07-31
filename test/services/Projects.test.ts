@@ -22,10 +22,10 @@ describe('test ProjectsService', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects?page=7&per_page=7')
+        .get('/v3/projects?page=7&per_page=4')
         .reply(200, { data: {} });
       return sdk.projects
-        .list({ page: 7, perPage: 7 })
+        .list({ page: 7, perPage: 4 })
         .then((r: any) => expect(r.data).toEqual({}));
     });
   });
@@ -40,23 +40,23 @@ describe('test ProjectsService', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=perspiciatis')
+        .get('/v3/projects/project?project=eum')
         .reply(200, { data: {} });
-      return sdk.projects.get('perspiciatis').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projects.get('eum').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=eos')
+        .get('/v3/projects/project?project=nobis')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projects.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=similique')
+        .get('/v3/projects/project?project=eaque')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projects.get('similique')).rejects.toThrow();
+      return expect(async () => await sdk.projects.get('eaque')).rejects.toThrow();
     });
   });
 

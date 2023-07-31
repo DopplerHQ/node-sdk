@@ -22,26 +22,26 @@ describe('test ConfigsService', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs?project=quasi&environment=animi&page=5&per_page=1')
+        .get('/v3/configs?project=ad&environment=atque&page=7&per_page=9')
         .reply(200, { data: {} });
       return sdk.configs
-        .list('quasi', { environment: 'animi', page: 5, perPage: 1 })
+        .list('ad', { environment: 'atque', page: 7, perPage: 9 })
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs?project=impedit&environment=quisquam&page=8&per_page=5')
+        .get('/v3/configs?project=dicta&environment=veniam&page=1&per_page=9')
         .reply(200, { data: {} });
       return expect(async () => await sdk.configs.list()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs?project=facere&environment=velit&page=4&per_page=3')
+        .get('/v3/configs?project=non&environment=iusto&page=3&per_page=7')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.configs.list('facere', { environment: 'velit', page: 4, perPage: 3 }),
+        async () => await sdk.configs.list('non', { environment: 'iusto', page: 3, perPage: 7 }),
       ).rejects.toThrow();
     });
   });
@@ -56,23 +56,23 @@ describe('test ConfigsService', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config?project=eligendi&config=omnis')
+        .get('/v3/configs/config?project=iure&config=alias')
         .reply(200, { data: {} });
-      return sdk.configs.get('eligendi', 'omnis').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.configs.get('iure', 'alias').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config?project=repudiandae&config=nostrum')
+        .get('/v3/configs/config?project=sit&config=nobis')
         .reply(200, { data: {} });
       return expect(async () => await sdk.configs.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config?project=alias&config=veniam')
+        .get('/v3/configs/config?project=id&config=sed')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.configs.get('alias', 'veniam')).rejects.toThrow();
+      return expect(async () => await sdk.configs.get('id', 'sed')).rejects.toThrow();
     });
   });
 
