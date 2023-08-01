@@ -3,7 +3,7 @@ import { Environment } from '../http/Environment';
 import HTTPLibrary from '../http/HTTPLibrary';
 
 export default class BaseService {
-  private userAgent: string = 'liblab/0.1.11 DopplerSDK/1.0.1 typescript/5.1.6';
+  private userAgent: string = 'liblab/0.1.11 DopplerSDK/1.0.2 typescript/5.1.6';
 
   public baseUrl: string = Environment.DEFAULT;
 
