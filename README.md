@@ -3,7 +3,7 @@
 Doppler's SDK for Node provides convenient access to the Doppler API from applications written in JavaScript or TypeScript. 
 
 - API version: 3
-- SDK version: 1.0.0
+- SDK version: 1.1.0
 
 ## Installation
 
@@ -19,7 +19,7 @@ npm install @dopplerhq/node-sdk
 import DopplerSDK from '@dopplerhq/node-sdk'
 
 const doppler = new DopplerSDK()
-doppler.setBearerToken('dp.xx.yyy')
+doppler.setAccessToken('dp.xx.yyy')
 
 const res = await doppler.projects.list();
 console.log(res);
