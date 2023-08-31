@@ -23,15 +23,15 @@ describe('test SecretsService', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets?project=atque&config=necessitatibus&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=4&secrets=vero&include_managed_secrets=true',
+          '/v3/configs/config/secrets?project=nobis&config=possimus&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=8&secrets=suscipit&include_managed_secrets=true',
         )
         .reply(200, { data: {} });
       return sdk.secrets
-        .list('atque', 'necessitatibus', {
-          accepts: 'ipsam',
+        .list('nobis', 'possimus', {
+          accepts: 'consequatur',
           includeDynamicSecrets: true,
-          dynamicSecretsTtlSec: 4,
-          secrets: 'vero',
+          dynamicSecretsTtlSec: 8,
+          secrets: 'suscipit',
           includeManagedSecrets: true,
         })
         .then((r: any) => expect(r.data).toEqual({}));
@@ -40,7 +40,7 @@ describe('test SecretsService', () => {
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets?project=iure&config=laboriosam&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=2&secrets=aspernatur&include_managed_secrets=true',
+          '/v3/configs/config/secrets?project=voluptatem&config=doloremque&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=2&secrets=iusto&include_managed_secrets=true',
         )
         .reply(200, { data: {} });
       return expect(async () => await sdk.secrets.list()).rejects.toThrow();
@@ -49,16 +49,16 @@ describe('test SecretsService', () => {
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets?project=at&config=expedita&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=5&secrets=repellat&include_managed_secrets=true',
+          '/v3/configs/config/secrets?project=illo&config=dolor&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=6&secrets=architecto&include_managed_secrets=true',
         )
         .reply(404, { data: {} });
       return expect(
         async () =>
-          await sdk.secrets.list('at', 'expedita', {
-            accepts: 'commodi',
+          await sdk.secrets.list('illo', 'dolor', {
+            accepts: 'harum',
             includeDynamicSecrets: true,
-            dynamicSecretsTtlSec: 5,
-            secrets: 'repellat',
+            dynamicSecretsTtlSec: 6,
+            secrets: 'architecto',
             includeManagedSecrets: true,
           }),
       ).rejects.toThrow();
@@ -77,24 +77,26 @@ describe('test SecretsService', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/secret?project=at&config=qui&name=Jefferey')
+        .get('/v3/configs/config/secret?project=nesciunt&config=perspiciatis&name=Taylor')
         .reply(200, { data: {} });
-      return sdk.secrets.get('at', 'qui', 'Jefferey').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.secrets
+        .get('nesciunt', 'perspiciatis', 'Taylor')
+        .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/secret?project=assumenda&config=ut&name=Clark')
+        .get('/v3/configs/config/secret?project=nobis&config=vero&name=Yasmeen')
         .reply(200, { data: {} });
       return expect(async () => await sdk.secrets.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/secret?project=ipsum&config=impedit&name=Evalyn')
+        .get('/v3/configs/config/secret?project=blanditiis&config=deleniti&name=Lauren')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.secrets.get('ipsum', 'impedit', 'Evalyn'),
+        async () => await sdk.secrets.get('blanditiis', 'deleniti', 'Lauren'),
       ).rejects.toThrow();
     });
   });
@@ -102,26 +104,26 @@ describe('test SecretsService', () => {
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/configs/config/secret?project=vero&config=ipsa&name=Ericka')
+        .delete('/v3/configs/config/secret?project=ratione&config=dolor&name=Keon')
         .reply(200, { data: {} });
       return sdk.secrets
-        .delete('vero', 'ipsa', 'Ericka')
+        .delete('ratione', 'dolor', 'Keon')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/configs/config/secret?project=recusandae&config=commodi&name=Krystal')
+        .delete('/v3/configs/config/secret?project=dicta&config=voluptatum&name=Agnes')
         .reply(200, { data: {} });
       return expect(async () => await sdk.secrets.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/configs/config/secret?project=laudantium&config=commodi&name=Maxwell')
+        .delete('/v3/configs/config/secret?project=eum&config=reprehenderit&name=Bobbie')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.secrets.delete('laudantium', 'commodi', 'Maxwell'),
+        async () => await sdk.secrets.delete('eum', 'reprehenderit', 'Bobbie'),
       ).rejects.toThrow();
     });
   });
@@ -130,15 +132,15 @@ describe('test SecretsService', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/download?project=repellat&config=iure&format=qui&name_transformer=Janiya&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=8',
+          '/v3/configs/config/secrets/download?project=explicabo&config=culpa&format=minus&name_transformer=Wilfrid&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=3',
         )
         .reply(200, { data: {} });
       return sdk.secrets
-        .download('repellat', 'iure', {
-          format: 'qui',
-          nameTransformer: 'Janiya',
+        .download('explicabo', 'culpa', {
+          format: 'minus',
+          nameTransformer: 'Wilfrid',
           includeDynamicSecrets: true,
-          dynamicSecretsTtlSec: 8,
+          dynamicSecretsTtlSec: 3,
         })
         .then((r: any) => expect(r.data).toEqual({}));
     });
@@ -146,7 +148,7 @@ describe('test SecretsService', () => {
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/download?project=nihil&config=eos&format=doloremque&name_transformer=Robb&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=6',
+          '/v3/configs/config/secrets/download?project=illo&config=possimus&format=quam&name_transformer=Alia&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=2',
         )
         .reply(200, { data: {} });
       return expect(async () => await sdk.secrets.download()).rejects.toThrow();
@@ -155,14 +157,14 @@ describe('test SecretsService', () => {
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/download?project=distinctio&config=similique&format=sit&name_transformer=Abdul&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=6',
+          '/v3/configs/config/secrets/download?project=cumque&config=inventore&format=cumque&name_transformer=Kaylie&include_dynamic_secrets=true&dynamic_secrets_ttl_sec=6',
         )
         .reply(404, { data: {} });
       return expect(
         async () =>
-          await sdk.secrets.download('distinctio', 'similique', {
-            format: 'sit',
-            nameTransformer: 'Abdul',
+          await sdk.secrets.download('cumque', 'inventore', {
+            format: 'cumque',
+            nameTransformer: 'Kaylie',
             includeDynamicSecrets: true,
             dynamicSecretsTtlSec: 6,
           }),
@@ -174,18 +176,18 @@ describe('test SecretsService', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/names?project=ab&config=accusamus&include_dynamic_secrets=true&include_managed_secrets=true',
+          '/v3/configs/config/secrets/names?project=ipsam&config=tempora&include_dynamic_secrets=true&include_managed_secrets=true',
         )
         .reply(200, { data: {} });
       return sdk.secrets
-        .names('ab', 'accusamus', { includeDynamicSecrets: true, includeManagedSecrets: true })
+        .names('ipsam', 'tempora', { includeDynamicSecrets: true, includeManagedSecrets: true })
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/names?project=exercitationem&config=qui&include_dynamic_secrets=true&include_managed_secrets=true',
+          '/v3/configs/config/secrets/names?project=ex&config=sunt&include_dynamic_secrets=true&include_managed_secrets=true',
         )
         .reply(200, { data: {} });
       return expect(async () => await sdk.secrets.names()).rejects.toThrow();
@@ -194,12 +196,12 @@ describe('test SecretsService', () => {
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
         .get(
-          '/v3/configs/config/secrets/names?project=libero&config=id&include_dynamic_secrets=true&include_managed_secrets=true',
+          '/v3/configs/config/secrets/names?project=sint&config=reiciendis&include_dynamic_secrets=true&include_managed_secrets=true',
         )
         .reply(404, { data: {} });
       return expect(
         async () =>
-          await sdk.secrets.names('libero', 'id', {
+          await sdk.secrets.names('sint', 'reiciendis', {
             includeDynamicSecrets: true,
             includeManagedSecrets: true,
           }),

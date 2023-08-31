@@ -896,7 +896,7 @@ const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
   const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
     accepts: 'application/json',
     includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 65880966,
+    dynamicSecretsTtlSec: -67525632,
     secrets: 'secrets',
     includeManagedSecrets: true,
   });
@@ -1012,7 +1012,7 @@ const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
 (async () => {
   const result = await sdk.secrets.download('project', 'config', {
     format: 'json',
-    nameTransformer: 'upper-camel',
+    nameTransformer: 'lower-snake',
     includeDynamicSecrets: true,
     dynamicSecretsTtlSec: 1800,
   });
@@ -1425,7 +1425,7 @@ const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
     config: 'config',
     dynamic_secret: 'dynamic_secret',
     project: 'project',
-    ttl_sec: 5969302,
+    ttl_sec: -64253753,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -1759,10 +1759,10 @@ const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
 
 (async () => {
   const input = {
-    environments: ['dolore incididunt in enim', 'non laboris'],
+    environments: ['esse irure id incididunt', 'culpa'],
     role: 'role',
     slug: 'slug',
-    type_: 'workplace_user',
+    type_: 'invite',
   };
   const result = await sdk.trustedIps.add(input, 'project', 'config');
   console.log(result);
@@ -2211,10 +2211,10 @@ const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
 
 (async () => {
   const input = {
-    environments: ['pariatur aliquip voluptate', 'in adipisicing'],
+    environments: ['proident', 'eiusmod est'],
     role: 'role',
     slug: 'slug',
-    type_: 'service_account',
+    type_: 'workplace_user',
   };
   const result = await sdk.projectMembers.add(input, 'project');
   console.log(result);
