@@ -22,124 +22,120 @@ describe('test EnvironmentsService', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments?project=harum')
+        .get('/v3/environments?project=quibusdam')
         .reply(200, { data: {} });
-      return sdk.environments.list('harum').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.environments.list('quibusdam').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments?project=quis')
+        .get('/v3/environments?project=nostrum')
         .reply(200, { data: {} });
       return expect(async () => await sdk.environments.list()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments?project=corrupti')
+        .get('/v3/environments?project=dolor')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.environments.list('corrupti')).rejects.toThrow();
+      return expect(async () => await sdk.environments.list('dolor')).rejects.toThrow();
     });
   });
 
   describe('test create', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/environments?project=deleniti')
+        .post('/v3/environments?project=illum')
         .reply(200, { data: {} });
-      return sdk.environments.create({}, 'deleniti').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.environments.create({}, 'illum').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/environments?project=illo')
+        .post('/v3/environments?project=fuga')
         .reply(200, { data: {} });
       return expect(async () => await sdk.environments.create()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/environments?project=unde')
+        .post('/v3/environments?project=recusandae')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.environments.create({}, 'unde')).rejects.toThrow();
+      return expect(async () => await sdk.environments.create({}, 'recusandae')).rejects.toThrow();
     });
   });
 
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments/environment?project=consectetur&environment=sit')
+        .get('/v3/environments/environment?project=sed&environment=soluta')
         .reply(200, { data: {} });
-      return sdk.environments
-        .get('consectetur', 'sit')
-        .then((r: any) => expect(r.data).toEqual({}));
+      return sdk.environments.get('sed', 'soluta').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments/environment?project=cumque&environment=excepturi')
+        .get('/v3/environments/environment?project=perspiciatis&environment=quo')
         .reply(200, { data: {} });
       return expect(async () => await sdk.environments.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/environments/environment?project=illum&environment=ratione')
+        .get('/v3/environments/environment?project=eius&environment=earum')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.environments.get('illum', 'ratione')).rejects.toThrow();
+      return expect(async () => await sdk.environments.get('eius', 'earum')).rejects.toThrow();
     });
   });
 
   describe('test rename', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/environments/environment?project=dolorem&environment=eos')
+        .put('/v3/environments/environment?project=rem&environment=atque')
         .reply(200, { data: {} });
       return sdk.environments
-        .rename({}, 'dolorem', 'eos')
+        .rename({}, 'rem', 'atque')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/environments/environment?project=architecto&environment=illo')
+        .put('/v3/environments/environment?project=dicta&environment=fugiat')
         .reply(200, { data: {} });
       return expect(async () => await sdk.environments.rename()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/environments/environment?project=quasi&environment=dolorem')
+        .put('/v3/environments/environment?project=ea&environment=iste')
         .reply(404, { data: {} });
-      return expect(
-        async () => await sdk.environments.rename({}, 'quasi', 'dolorem'),
-      ).rejects.toThrow();
+      return expect(async () => await sdk.environments.rename({}, 'ea', 'iste')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/environments/environment?project=error&environment=temporibus')
+        .delete('/v3/environments/environment?project=voluptas&environment=accusamus')
         .reply(200, { data: {} });
       return sdk.environments
-        .delete('error', 'temporibus')
+        .delete('voluptas', 'accusamus')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/environments/environment?project=magni&environment=suscipit')
+        .delete('/v3/environments/environment?project=autem&environment=cumque')
         .reply(200, { data: {} });
       return expect(async () => await sdk.environments.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/environments/environment?project=laudantium&environment=reiciendis')
+        .delete('/v3/environments/environment?project=quibusdam&environment=alias')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.environments.delete('laudantium', 'reiciendis'),
+        async () => await sdk.environments.delete('quibusdam', 'alias'),
       ).rejects.toThrow();
     });
   });

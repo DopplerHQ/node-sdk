@@ -22,9 +22,9 @@ describe('test GroupsService', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/groups?page=8&per_page=7')
+        .get('/v3/workplace/groups?page=6&per_page=7')
         .reply(200, { data: {} });
-      return sdk.groups.list({ page: 8, perPage: 7 }).then((r: any) => expect(r.data).toEqual({}));
+      return sdk.groups.list({ page: 6, perPage: 7 }).then((r: any) => expect(r.data).toEqual({}));
     });
   });
 
@@ -40,118 +40,118 @@ describe('test GroupsService', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/groups/group/voluptatem')
+        .get('/v3/workplace/groups/group/suscipit')
         .reply(200, { data: {} });
-      return sdk.groups.get('voluptatem').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.groups.get('suscipit').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/groups/group/commodi')
+        .get('/v3/workplace/groups/group/ad')
         .reply(200, { data: {} });
       return expect(async () => await sdk.groups.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/groups/group/mollitia')
+        .get('/v3/workplace/groups/group/ad')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.groups.get('mollitia')).rejects.toThrow();
+      return expect(async () => await sdk.groups.get('ad')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/atque')
+        .delete('/v3/workplace/groups/group/repellendus')
         .reply(200, { data: {} });
-      return sdk.groups.delete('atque').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.groups.delete('repellendus').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/aliquid')
+        .delete('/v3/workplace/groups/group/eum')
         .reply(200, { data: {} });
       return expect(async () => await sdk.groups.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/impedit')
+        .delete('/v3/workplace/groups/group/recusandae')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.groups.delete('impedit')).rejects.toThrow();
+      return expect(async () => await sdk.groups.delete('recusandae')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/groups/group/voluptatibus')
+        .patch('/v3/workplace/groups/group/iste')
         .reply(200, { data: {} });
-      return sdk.groups.update({}, 'voluptatibus').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.groups.update({}, 'iste').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/groups/group/rerum')
+        .patch('/v3/workplace/groups/group/nam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.groups.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/groups/group/necessitatibus')
+        .patch('/v3/workplace/groups/group/iure')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.groups.update({}, 'necessitatibus')).rejects.toThrow();
+      return expect(async () => await sdk.groups.update({}, 'iure')).rejects.toThrow();
     });
   });
 
   describe('test addMember', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/workplace/groups/group/est/members')
+        .post('/v3/workplace/groups/group/fuga/members')
         .reply(200, { data: {} });
-      return sdk.groups.addMember({}, 'est').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.groups.addMember({}, 'fuga').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/workplace/groups/group/exercitationem/members')
+        .post('/v3/workplace/groups/group/hic/members')
         .reply(200, { data: {} });
       return expect(async () => await sdk.groups.addMember()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/workplace/groups/group/quam/members')
+        .post('/v3/workplace/groups/group/at/members')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.groups.addMember({}, 'quam')).rejects.toThrow();
+      return expect(async () => await sdk.groups.addMember({}, 'at')).rejects.toThrow();
     });
   });
 
   describe('test deleteMember', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/rem/members/%7Btype%7D/maiores')
+        .delete('/v3/workplace/groups/group/eos/members/%7Btype%7D/soluta')
         .reply(200, { data: {} });
       return sdk.groups
-        .deleteMember('rem', 'eos', 'maiores')
+        .deleteMember('eos', 'autem', 'soluta')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/consequuntur/members/%7Btype%7D/in')
+        .delete('/v3/workplace/groups/group/vero/members/%7Btype%7D/officiis')
         .reply(200, { data: {} });
       return expect(async () => await sdk.groups.deleteMember()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/groups/group/officiis/members/%7Btype%7D/consequatur')
+        .delete('/v3/workplace/groups/group/aliquam/members/%7Btype%7D/voluptatibus')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.groups.deleteMember('officiis', 'eaque', 'consequatur'),
+        async () => await sdk.groups.deleteMember('aliquam', 'beatae', 'voluptatibus'),
       ).rejects.toThrow();
     });
   });
