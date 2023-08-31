@@ -1,12 +1,17 @@
 import BaseService from './base';
 
-import { SecretsUpdateRequest } from '../models/SecretsUpdateRequest';
-import { SecretsUpdate200Response } from '../models/SecretsUpdate200Response';
-import { SecretsGet200Response } from '../models/SecretsGet200Response';
-import { SecretsDownload200Response } from '../models/SecretsDownload200Response';
-import { SecretsListNames200Response } from '../models/SecretsListNames200Response';
-import { SecretsUpdateNoteRequest } from '../models/SecretsUpdateNoteRequest';
-import { SecretsUpdateNote200Response } from '../models/SecretsUpdateNote200Response';
+import { ListResponse } from '../models/ListResponse';
+import { UpdateRequest } from '../models/UpdateRequest';
+import { UpdateResponse } from '../models/UpdateResponse';
+import { GetResponse } from '../models/GetResponse';
+import { Format } from '../models/Format';
+import { NameTransformer } from '../models/NameTransformer';
+import { DownloadResponse } from '../models/DownloadResponse';
+import { NamesResponse } from '../models/NamesResponse';
+import { UpdateNoteRequest } from '../models/UpdateNoteRequest';
+import { UpdateNoteResponse } from '../models/UpdateNoteResponse';
+
+import { serializeQuery, serializeHeader, serializePath } from '../http/QuerySerializer';
 
 export default class SecretsService extends BaseService {
   /**
@@ -21,7 +26,7 @@ export default class SecretsService extends BaseService {
    * @param optionalParams.dynamicSecretsTtlSec - The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes).
    * @param optionalParams.secrets - A comma-separated list of secrets to include in the response
    * @param optionalParams.includeManagedSecrets - Whether to include Doppler's auto-generated (managed) secrets
-   * @returns {Promise<any>} - The promise with the result
+   * @returns {Promise<ListResponse.Model>} - The promise with the result
    */
   async list(
     project: string,
@@ -33,7 +38,7 @@ export default class SecretsService extends BaseService {
       secrets?: string;
       includeManagedSecrets?: boolean;
     } = {},
-  ): Promise<any> {
+  ): Promise<ListResponse.Model> {
     const { accepts, includeDynamicSecrets, dynamicSecretsTtlSec, secrets, includeManagedSecrets } =
       optionalParams;
     if (project === undefined || config === undefined) {
@@ -44,30 +49,36 @@ export default class SecretsService extends BaseService {
     const queryParams: string[] = [];
     const headers: { [key: string]: string } = {};
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (config) {
-      queryParams.push(`config=${config}`);
+      queryParams.push(serializeQuery('form', true, 'config', config));
     }
     if (accepts) {
-      headers['accepts'] = accepts;
+      headers['accepts'] = serializeHeader(false, accepts);
     }
     if (includeDynamicSecrets) {
-      queryParams.push(`include_dynamic_secrets=${includeDynamicSecrets}`);
+      queryParams.push(
+        serializeQuery('form', true, 'include_dynamic_secrets', includeDynamicSecrets),
+      );
     }
     if (dynamicSecretsTtlSec) {
-      queryParams.push(`dynamic_secrets_ttl_sec=${dynamicSecretsTtlSec}`);
+      queryParams.push(
+        serializeQuery('form', true, 'dynamic_secrets_ttl_sec', dynamicSecretsTtlSec),
+      );
     }
     if (secrets) {
-      queryParams.push(`secrets=${secrets}`);
+      queryParams.push(serializeQuery('form', true, 'secrets', secrets));
     }
     if (includeManagedSecrets) {
-      queryParams.push(`include_managed_secrets=${includeManagedSecrets}`);
+      queryParams.push(
+        serializeQuery('form', true, 'include_managed_secrets', includeManagedSecrets),
+      );
     }
     const urlEndpoint = '/v3/configs/config/secrets';
     const urlParams = queryParams.length > 0 ? `?${encodeURI(queryParams.join('&'))}` : '';
     const finalUrl = `${this.baseUrl + urlEndpoint}${urlParams}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -76,7 +87,7 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data;
+    const responseModel = response.data as ListResponse.Model;
     return responseModel;
   }
 
@@ -84,13 +95,13 @@ export default class SecretsService extends BaseService {
    * @summary Update
    * @description Secrets
 
-   * @returns {Promise<SecretsUpdate200Response.Model>} - The promise with the result
+   * @returns {Promise<UpdateResponse.Model>} - The promise with the result
    */
-  async update(input: SecretsUpdateRequest.Model): Promise<SecretsUpdate200Response.Model> {
+  async update(input: UpdateRequest.Model): Promise<UpdateResponse.Model> {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     const urlEndpoint = '/v3/configs/config/secrets';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.http.post(
+    const response: any = await this.httpClient.post(
       finalUrl,
       input,
       {
@@ -99,7 +110,7 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as SecretsUpdate200Response.Model;
+    const responseModel = response.data as UpdateResponse.Model;
     return responseModel;
   }
 
@@ -110,9 +121,9 @@ export default class SecretsService extends BaseService {
    * @param project Unique identifier for the project object.
    * @param config Name of the config object.
    * @param name Name of the secret.
-   * @returns {Promise<SecretsGet200Response.Model>} - The promise with the result
+   * @returns {Promise<GetResponse.Model>} - The promise with the result
    */
-  async get(project: string, config: string, name: string): Promise<SecretsGet200Response.Model> {
+  async get(project: string, config: string, name: string): Promise<GetResponse.Model> {
     if (project === undefined || config === undefined || name === undefined) {
       throw new Error(
         'The following are required parameters: project,config,name, cannot be empty or blank',
@@ -120,17 +131,17 @@ export default class SecretsService extends BaseService {
     }
     const queryParams: string[] = [];
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (config) {
-      queryParams.push(`config=${config}`);
+      queryParams.push(serializeQuery('form', true, 'config', config));
     }
     if (name) {
-      queryParams.push(`name=${name}`);
+      queryParams.push(serializeQuery('form', true, 'name', name));
     }
     const urlEndpoint = '/v3/configs/config/secret';
     const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -138,7 +149,46 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as SecretsGet200Response.Model;
+    const responseModel = response.data as GetResponse.Model;
+    return responseModel;
+  }
+
+  /**
+   * @summary Delete
+   * @description Secret
+
+   * @param project Unique identifier for the project object.
+   * @param config Name of the config object.
+   * @param name Name of the secret.
+   * @returns {Promise<any>} - The promise with the result
+   */
+  async delete(project: string, config: string, name: string): Promise<any> {
+    if (project === undefined || config === undefined || name === undefined) {
+      throw new Error(
+        'The following are required parameters: project,config,name, cannot be empty or blank',
+      );
+    }
+    const queryParams: string[] = [];
+    if (project) {
+      queryParams.push(serializeQuery('form', true, 'project', project));
+    }
+    if (config) {
+      queryParams.push(serializeQuery('form', true, 'config', config));
+    }
+    if (name) {
+      queryParams.push(serializeQuery('form', true, 'name', name));
+    }
+    const urlEndpoint = '/v3/configs/config/secret';
+    const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
+    const response: any = await this.httpClient.delete(
+      finalUrl,
+      { project, config, name },
+      {
+        ...this.getAuthorizationHeader(),
+      },
+      true,
+    );
+    const responseModel = response.data;
     return responseModel;
   }
 
@@ -153,18 +203,18 @@ export default class SecretsService extends BaseService {
    * @param optionalParams.nameTransformer - Transform secret names to a different case
    * @param optionalParams.includeDynamicSecrets - Whether or not to issue leases and include dynamic secret values for the config
    * @param optionalParams.dynamicSecretsTtlSec - The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes).
-   * @returns {Promise<SecretsDownload200Response.Model>} - The promise with the result
+   * @returns {Promise<DownloadResponse.Model>} - The promise with the result
    */
   async download(
     project: string,
     config: string,
     optionalParams: {
-      format?: string;
-      nameTransformer?: string;
+      format?: Format.Model;
+      nameTransformer?: NameTransformer.Model;
       includeDynamicSecrets?: boolean;
       dynamicSecretsTtlSec?: number;
     } = {},
-  ): Promise<SecretsDownload200Response.Model> {
+  ): Promise<DownloadResponse.Model> {
     const { format, nameTransformer, includeDynamicSecrets, dynamicSecretsTtlSec } = optionalParams;
     if (project === undefined || config === undefined) {
       throw new Error(
@@ -173,27 +223,31 @@ export default class SecretsService extends BaseService {
     }
     const queryParams: string[] = [];
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (config) {
-      queryParams.push(`config=${config}`);
+      queryParams.push(serializeQuery('form', true, 'config', config));
     }
     if (format) {
-      queryParams.push(`format=${format}`);
+      queryParams.push(serializeQuery('form', true, 'format', format));
     }
     if (nameTransformer) {
-      queryParams.push(`name_transformer=${nameTransformer}`);
+      queryParams.push(serializeQuery('form', true, 'name_transformer', nameTransformer));
     }
     if (includeDynamicSecrets) {
-      queryParams.push(`include_dynamic_secrets=${includeDynamicSecrets}`);
+      queryParams.push(
+        serializeQuery('form', true, 'include_dynamic_secrets', includeDynamicSecrets),
+      );
     }
     if (dynamicSecretsTtlSec) {
-      queryParams.push(`dynamic_secrets_ttl_sec=${dynamicSecretsTtlSec}`);
+      queryParams.push(
+        serializeQuery('form', true, 'dynamic_secrets_ttl_sec', dynamicSecretsTtlSec),
+      );
     }
     const urlEndpoint = '/v3/configs/config/secrets/download';
     const urlParams = queryParams.length > 0 ? `?${encodeURI(queryParams.join('&'))}` : '';
     const finalUrl = `${this.baseUrl + urlEndpoint}${urlParams}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -201,12 +255,12 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as SecretsDownload200Response.Model;
+    const responseModel = response.data as DownloadResponse.Model;
     return responseModel;
   }
 
   /**
-   * @summary List
+   * @summary List Names
    * @description Secret Names
 
    * @param project Unique identifier for the project object.
@@ -214,13 +268,13 @@ export default class SecretsService extends BaseService {
    * @param optionalParams - Optional parameters
    * @param optionalParams.includeDynamicSecrets - Whether or not to issue leases and include dynamic secret values for the config
    * @param optionalParams.includeManagedSecrets - Whether to include Doppler's auto-generated (managed) secrets
-   * @returns {Promise<SecretsListNames200Response.Model>} - The promise with the result
+   * @returns {Promise<NamesResponse.Model>} - The promise with the result
    */
-  async listNames(
+  async names(
     project: string,
     config: string,
     optionalParams: { includeDynamicSecrets?: boolean; includeManagedSecrets?: boolean } = {},
-  ): Promise<SecretsListNames200Response.Model> {
+  ): Promise<NamesResponse.Model> {
     const { includeDynamicSecrets, includeManagedSecrets } = optionalParams;
     if (project === undefined || config === undefined) {
       throw new Error(
@@ -229,21 +283,25 @@ export default class SecretsService extends BaseService {
     }
     const queryParams: string[] = [];
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (config) {
-      queryParams.push(`config=${config}`);
+      queryParams.push(serializeQuery('form', true, 'config', config));
     }
     if (includeDynamicSecrets) {
-      queryParams.push(`include_dynamic_secrets=${includeDynamicSecrets}`);
+      queryParams.push(
+        serializeQuery('form', true, 'include_dynamic_secrets', includeDynamicSecrets),
+      );
     }
     if (includeManagedSecrets) {
-      queryParams.push(`include_managed_secrets=${includeManagedSecrets}`);
+      queryParams.push(
+        serializeQuery('form', true, 'include_managed_secrets', includeManagedSecrets),
+      );
     }
     const urlEndpoint = '/v3/configs/config/secrets/names';
     const urlParams = queryParams.length > 0 ? `?${encodeURI(queryParams.join('&'))}` : '';
     const finalUrl = `${this.baseUrl + urlEndpoint}${urlParams}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -251,23 +309,21 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as SecretsListNames200Response.Model;
+    const responseModel = response.data as NamesResponse.Model;
     return responseModel;
   }
 
   /**
-   * @summary Note
+   * @summary Update Note
    * @description Set a note on a secret
 
-   * @returns {Promise<SecretsUpdateNote200Response.Model>} - The promise with the result
+   * @returns {Promise<UpdateNoteResponse.Model>} - The promise with the result
    */
-  async updateNote(
-    input: SecretsUpdateNoteRequest.Model,
-  ): Promise<SecretsUpdateNote200Response.Model> {
+  async updateNote(input: UpdateNoteRequest.Model): Promise<UpdateNoteResponse.Model> {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     const urlEndpoint = '/v3/configs/config/secrets/note';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.http.post(
+    const response: any = await this.httpClient.post(
       finalUrl,
       input,
       {
@@ -276,7 +332,7 @@ export default class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as SecretsUpdateNote200Response.Model;
+    const responseModel = response.data as UpdateNoteResponse.Model;
     return responseModel;
   }
 }

@@ -1,32 +1,32 @@
-import HTTPClient from '../http/HTTPClient';
 import { Environment } from '../http/Environment';
 import HTTPLibrary from '../http/HTTPLibrary';
+import { Headers } from '../http/HTTPClient';
 
 export default class BaseService {
-  private userAgent: string = 'liblab/0.1.11 DopplerSDK/1.0.2 typescript/5.1.6';
-
   public baseUrl: string = Environment.DEFAULT;
 
-  public http = new HTTPLibrary(this.userAgent) as HTTPClient;
+  public httpClient = new HTTPLibrary();
 
-  private bearer: string = '';
+  private accessToken: string = '';
 
-  setToken(bearer: string): void {
-    this.bearer = bearer;
+  private accessTokenPrefix: string = 'Bearer';
+
+  setAccessToken(accessToken: string): void {
+    this.accessToken = accessToken;
   }
 
-  getAuthorizationHeader(): object {
-    const auth = { Authorization: `Bearer ${this.bearer}` };
+  getAuthorizationHeader(): Headers {
+    const accessTokenAuth = { Authorization: `${this.accessTokenPrefix} ${this.accessToken}` };
 
-    return { ...auth };
+    return { ...accessTokenAuth };
   }
 
   setBaseUrl(url: string): void {
     this.baseUrl = url;
   }
 
-  constructor(bearerToken: string = '') {
-    this.setToken(bearerToken);
+  constructor(accessToken: string = '') {
+    this.setAccessToken(accessToken);
   }
 
   static patternMatching(value: string, pattern: string, variableName: string): string {

@@ -1,18 +1,20 @@
 import BaseService from './base';
 
-import { V3Me200Response } from '../models/V3Me200Response';
+import { MeResponse } from '../models/MeResponse';
+
+import { serializeQuery, serializeHeader, serializePath } from '../http/QuerySerializer';
 
 export default class V3Service extends BaseService {
   /**
    * @summary Me
    * @description Get information about a token
 
-   * @returns {Promise<V3Me200Response.Model>} - The promise with the result
+   * @returns {Promise<MeResponse.Model>} - The promise with the result
    */
-  async me(): Promise<V3Me200Response.Model> {
+  async me(): Promise<MeResponse.Model> {
     const urlEndpoint = '/v3/me';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -20,7 +22,7 @@ export default class V3Service extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as V3Me200Response.Model;
+    const responseModel = response.data as MeResponse.Model;
     return responseModel;
   }
 }

@@ -1,21 +1,24 @@
 import BaseService from './base';
 
-import { DynamicSecretsIssueLeaseRequest } from '../models/DynamicSecretsIssueLeaseRequest';
-import { DynamicSecretsRevokeLeaseRequest } from '../models/DynamicSecretsRevokeLeaseRequest';
-import { DynamicSecretsRevokeLease200Response } from '../models/DynamicSecretsRevokeLease200Response';
+import { IssueLeaseRequest } from '../models/IssueLeaseRequest';
+import { IssueLeaseResponse } from '../models/IssueLeaseResponse';
+import { RevokeLeaseRequest } from '../models/RevokeLeaseRequest';
+import { RevokeLeaseResponse } from '../models/RevokeLeaseResponse';
+
+import { serializeQuery, serializeHeader, serializePath } from '../http/QuerySerializer';
 
 export default class DynamicSecretsService extends BaseService {
   /**
    * @summary Issue Lease
    * @description Issue a lease for a dynamic secret
 
-   * @returns {Promise<any>} - The promise with the result
+   * @returns {Promise<IssueLeaseResponse.Model>} - The promise with the result
    */
-  async issueLease(input: DynamicSecretsIssueLeaseRequest.Model): Promise<any> {
+  async issueLease(input: IssueLeaseRequest.Model): Promise<IssueLeaseResponse.Model> {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     const urlEndpoint = '/v3/configs/config/dynamic_secrets/dynamic_secret/leases';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.http.post(
+    const response: any = await this.httpClient.post(
       finalUrl,
       input,
       {
@@ -24,22 +27,20 @@ export default class DynamicSecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data;
+    const responseModel = response.data as IssueLeaseResponse.Model;
     return responseModel;
   }
 
   /**
    * @summary Revoke Lease
 
-   * @returns {Promise<DynamicSecretsRevokeLease200Response.Model>} - The promise with the result
+   * @returns {Promise<RevokeLeaseResponse.Model>} - The promise with the result
    */
-  async revokeLease(
-    input: DynamicSecretsRevokeLeaseRequest.Model,
-  ): Promise<DynamicSecretsRevokeLease200Response.Model> {
+  async revokeLease(input: RevokeLeaseRequest.Model): Promise<RevokeLeaseResponse.Model> {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     const urlEndpoint = '/v3/configs/config/dynamic_secrets/dynamic_secret/leases/lease';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
-    const response: any = await this.http.delete(
+    const response: any = await this.httpClient.delete(
       finalUrl,
       input,
       {
@@ -48,7 +49,7 @@ export default class DynamicSecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as DynamicSecretsRevokeLease200Response.Model;
+    const responseModel = response.data as RevokeLeaseResponse.Model;
     return responseModel;
   }
 }

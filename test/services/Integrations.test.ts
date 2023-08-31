@@ -40,69 +40,69 @@ describe('test IntegrationsService', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=iure')
+        .get('/v3/integrations/integration?integration=voluptatem')
         .reply(200, { data: {} });
-      return sdk.integrations.get('iure').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.get('voluptatem').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=ipsum')
+        .get('/v3/integrations/integration?integration=dolorem')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=doloribus')
+        .get('/v3/integrations/integration?integration=ut')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.get('doloribus')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.get('ut')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=quasi')
+        .put('/v3/integrations/integration?integration=animi')
         .reply(200, { data: {} });
-      return sdk.integrations.update({}, 'quasi').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.update({}, 'animi').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=dolor')
+        .put('/v3/integrations/integration?integration=nam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=praesentium')
+        .put('/v3/integrations/integration?integration=omnis')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.update({}, 'praesentium')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.update({}, 'omnis')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=aliquid')
+        .delete('/v3/integrations/integration?integration=ipsum')
         .reply(200, { data: {} });
-      return sdk.integrations.delete('aliquid').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.delete('ipsum').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=culpa')
+        .delete('/v3/integrations/integration?integration=consequatur')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=rerum')
+        .delete('/v3/integrations/integration?integration=repellendus')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.delete('rerum')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.delete('repellendus')).rejects.toThrow();
     });
   });
 });
