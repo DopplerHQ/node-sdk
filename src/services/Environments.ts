@@ -1,37 +1,33 @@
 import BaseService from './base';
 
-import { EnvironmentsGet200Response } from '../models/EnvironmentsGet200Response';
-import { EnvironmentsRenameRequest } from '../models/EnvironmentsRenameRequest';
-import { EnvironmentsRename200Response } from '../models/EnvironmentsRename200Response';
-import { EnvironmentsList200Response } from '../models/EnvironmentsList200Response';
-import { EnvironmentsCreateRequest } from '../models/EnvironmentsCreateRequest';
-import { EnvironmentsCreate200Response } from '../models/EnvironmentsCreate200Response';
+import { ListResponse } from '../models/ListResponse';
+import { CreateRequest } from '../models/CreateRequest';
+import { CreateResponse } from '../models/CreateResponse';
+import { GetResponse } from '../models/GetResponse';
+import { RenameRequest } from '../models/RenameRequest';
+import { RenameResponse } from '../models/RenameResponse';
+
+import { serializeQuery, serializeHeader, serializePath } from '../http/QuerySerializer';
 
 export default class EnvironmentsService extends BaseService {
   /**
-   * @summary Retrieve
-   * @description Environment
+   * @summary List
+   * @description Environments
 
    * @param project The project's name
-   * @param environment The environment's slug
-   * @returns {Promise<EnvironmentsGet200Response.Model>} - The promise with the result
+   * @returns {Promise<ListResponse.Model>} - The promise with the result
    */
-  async get(project: string, environment: string): Promise<EnvironmentsGet200Response.Model> {
-    if (project === undefined || environment === undefined) {
-      throw new Error(
-        'The following are required parameters: project,environment, cannot be empty or blank',
-      );
+  async list(project: string): Promise<ListResponse.Model> {
+    if (project === undefined) {
+      throw new Error('The following parameter is required: project, cannot be empty or blank');
     }
     const queryParams: string[] = [];
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
-    if (environment) {
-      queryParams.push(`environment=${environment}`);
-    }
-    const urlEndpoint = '/v3/environments/environment';
+    const urlEndpoint = '/v3/environments';
     const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.get(
+    const response: any = await this.httpClient.get(
       finalUrl,
       {},
       {
@@ -39,7 +35,73 @@ export default class EnvironmentsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as EnvironmentsGet200Response.Model;
+    const responseModel = response.data as ListResponse.Model;
+    return responseModel;
+  }
+
+  /**
+   * @summary Create
+   * @description Environment
+
+   * @param project The project's name
+   * @returns {Promise<CreateResponse.Model>} - The promise with the result
+   */
+  async create(input: CreateRequest.Model, project: string): Promise<CreateResponse.Model> {
+    if (project === undefined) {
+      throw new Error('The following parameter is required: project, cannot be empty or blank');
+    }
+    const queryParams: string[] = [];
+    const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
+    if (project) {
+      queryParams.push(serializeQuery('form', true, 'project', project));
+    }
+    const urlEndpoint = '/v3/environments';
+    const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
+    const response: any = await this.httpClient.post(
+      finalUrl,
+      input,
+      {
+        ...headers,
+        ...this.getAuthorizationHeader(),
+      },
+      true,
+    );
+    const responseModel = response.data as CreateResponse.Model;
+    return responseModel;
+  }
+
+  /**
+   * @summary Retrieve
+   * @description Environment
+
+   * @param project The project's name
+   * @param environment The environment's slug
+   * @returns {Promise<GetResponse.Model>} - The promise with the result
+   */
+  async get(project: string, environment: string): Promise<GetResponse.Model> {
+    if (project === undefined || environment === undefined) {
+      throw new Error(
+        'The following are required parameters: project,environment, cannot be empty or blank',
+      );
+    }
+    const queryParams: string[] = [];
+    if (project) {
+      queryParams.push(serializeQuery('form', true, 'project', project));
+    }
+    if (environment) {
+      queryParams.push(serializeQuery('form', true, 'environment', environment));
+    }
+    const urlEndpoint = '/v3/environments/environment';
+    const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
+    const response: any = await this.httpClient.get(
+      finalUrl,
+      {},
+      {
+        ...this.getAuthorizationHeader(),
+      },
+      true,
+    );
+    const responseModel = response.data as GetResponse.Model;
     return responseModel;
   }
 
@@ -49,13 +111,13 @@ export default class EnvironmentsService extends BaseService {
 
    * @param project The project's name
    * @param environment The environment's slug
-   * @returns {Promise<EnvironmentsRename200Response.Model>} - The promise with the result
+   * @returns {Promise<RenameResponse.Model>} - The promise with the result
    */
   async rename(
-    input: EnvironmentsRenameRequest.Model,
+    input: RenameRequest.Model,
     project: string,
     environment: string,
-  ): Promise<EnvironmentsRename200Response.Model> {
+  ): Promise<RenameResponse.Model> {
     if (project === undefined || environment === undefined) {
       throw new Error(
         'The following are required parameters: project,environment, cannot be empty or blank',
@@ -64,14 +126,14 @@ export default class EnvironmentsService extends BaseService {
     const queryParams: string[] = [];
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (environment) {
-      queryParams.push(`environment=${environment}`);
+      queryParams.push(serializeQuery('form', true, 'environment', environment));
     }
     const urlEndpoint = '/v3/environments/environment';
     const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.put(
+    const response: any = await this.httpClient.put(
       finalUrl,
       input,
       {
@@ -80,7 +142,7 @@ export default class EnvironmentsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as EnvironmentsRename200Response.Model;
+    const responseModel = response.data as RenameResponse.Model;
     return responseModel;
   }
 
@@ -100,14 +162,14 @@ export default class EnvironmentsService extends BaseService {
     }
     const queryParams: string[] = [];
     if (project) {
-      queryParams.push(`project=${project}`);
+      queryParams.push(serializeQuery('form', true, 'project', project));
     }
     if (environment) {
-      queryParams.push(`environment=${environment}`);
+      queryParams.push(serializeQuery('form', true, 'environment', environment));
     }
     const urlEndpoint = '/v3/environments/environment';
     const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.delete(
+    const response: any = await this.httpClient.delete(
       finalUrl,
       { project, environment },
       {
@@ -116,69 +178,6 @@ export default class EnvironmentsService extends BaseService {
       true,
     );
     const responseModel = response.data;
-    return responseModel;
-  }
-
-  /**
-   * @summary List
-   * @description Environments
-
-   * @param project The project's name
-   * @returns {Promise<EnvironmentsList200Response.Model>} - The promise with the result
-   */
-  async list(project: string): Promise<EnvironmentsList200Response.Model> {
-    if (project === undefined) {
-      throw new Error('The following parameter is required: project, cannot be empty or blank');
-    }
-    const queryParams: string[] = [];
-    if (project) {
-      queryParams.push(`project=${project}`);
-    }
-    const urlEndpoint = '/v3/environments';
-    const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.get(
-      finalUrl,
-      {},
-      {
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
-    const responseModel = response.data as EnvironmentsList200Response.Model;
-    return responseModel;
-  }
-
-  /**
-   * @summary Create
-   * @description Environment
-
-   * @param project The project's name
-   * @returns {Promise<EnvironmentsCreate200Response.Model>} - The promise with the result
-   */
-  async create(
-    input: EnvironmentsCreateRequest.Model,
-    project: string,
-  ): Promise<EnvironmentsCreate200Response.Model> {
-    if (project === undefined) {
-      throw new Error('The following parameter is required: project, cannot be empty or blank');
-    }
-    const queryParams: string[] = [];
-    const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
-    if (project) {
-      queryParams.push(`project=${project}`);
-    }
-    const urlEndpoint = '/v3/environments';
-    const finalUrl = `${this.baseUrl + urlEndpoint}?${encodeURI(queryParams.join('&'))}`;
-    const response: any = await this.http.post(
-      finalUrl,
-      input,
-      {
-        ...headers,
-        ...this.getAuthorizationHeader(),
-      },
-      true,
-    );
-    const responseModel = response.data as EnvironmentsCreate200Response.Model;
     return responseModel;
   }
 }

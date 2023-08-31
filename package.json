@@ -14,7 +14,6 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "src",
     "README.md"
   ],
   "devDependencies": {
@@ -47,11 +46,12 @@
     "rebuild": "rm -rf dist/ && tsc",
     "test": "jest --detectOpenHandles",
     "watch": "rm -rf dist/ && tsc -w",
-    "version": "tsc --version"
+    "version": "tsc --version",
+    "prepublishOnly": "npm run build"
   },
   "name": "@dopplerhq/node-sdk",
   "description": "DopplerSDK",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "DopplerSDK",
   "dependencies": {},
   "type": "module"

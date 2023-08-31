@@ -10,19 +10,21 @@ interface Response {
 }
 
 export default class HTTPLibrary implements HTTPClient {
-  static readonly responseMapper: Record<string, string> = { type: 'type_' };
+  readonly userAgentHeader: Headers = {
+    'User-Agent': 'liblab/0.1.16 DopplerSDK/1.1.0 typescript/5.1.6',
+  };
 
-  private readonly requestMapper: Record<string, string> = { type_: 'type' };
+  readonly retryAttempts: number = 3;
 
-  private readonly retryTimes: number = 3;
+  readonly retryDelayMs: number = 150;
 
-  private readonly retryDelay: number = 150;
+  private static readonly responseMapper: Map<string, string> = new Map<string, string>([
+    ['type', 'type_'],
+  ]);
 
-  private userAgent: string = '';
-
-  constructor(userAgent: string) {
-    this.userAgent = userAgent;
-  }
+  private readonly requestMapper: Map<string, string> = new Map<string, string>([
+    ['type_', 'type'],
+  ]);
 
   async get(url: string, input: any, headers: Headers, retry: boolean = false): Promise<any> {
     const request = () =>
@@ -30,7 +32,8 @@ export default class HTTPLibrary implements HTTPClient {
         'GET',
         url,
         {
-          ...HTTPLibrary.compositeHeaders(headers, this.userAgent),
+          ...headers,
+          ...this.getUserAgentHeader(),
           'content-type': 'application/json',
         },
         Object.keys(input).length > 0
@@ -39,7 +42,7 @@ export default class HTTPLibrary implements HTTPClient {
       );
 
     const response = retry
-      ? await this.retry(this.retryTimes, request, this.retryDelay)
+      ? await this.retry(this.retryAttempts, request, this.retryDelayMs)
       : await request();
 
     return HTTPLibrary.handleResponse(response);
@@ -51,14 +54,15 @@ export default class HTTPLibrary implements HTTPClient {
         'POST',
         url,
         {
-          ...HTTPLibrary.compositeHeaders(headers, this.userAgent),
+          ...headers,
+          ...this.getUserAgentHeader(),
           'content-type': 'application/json',
         },
         JSON.stringify(HTTPLibrary.convertKeysWithMapper(input, this.requestMapper)),
       );
 
     const response = retry
-      ? await this.retry(this.retryTimes, request, this.retryDelay)
+      ? await this.retry(this.retryAttempts, request, this.retryDelayMs)
       : await request();
 
     return HTTPLibrary.handleResponse(response);
@@ -70,14 +74,15 @@ export default class HTTPLibrary implements HTTPClient {
         'DELETE',
         url,
         {
-          ...HTTPLibrary.compositeHeaders(headers, this.userAgent),
+          ...headers,
+          ...this.getUserAgentHeader(),
           'content-type': 'application/json',
         },
         JSON.stringify(HTTPLibrary.convertKeysWithMapper(input, this.requestMapper)),
       );
 
     const response = retry
-      ? await this.retry(this.retryTimes, request, this.retryDelay)
+      ? await this.retry(this.retryAttempts, request, this.retryDelayMs)
       : await request();
 
     return HTTPLibrary.handleResponse(response);
@@ -89,14 +94,15 @@ export default class HTTPLibrary implements HTTPClient {
         'PUT',
         url,
         {
-          ...HTTPLibrary.compositeHeaders(headers, this.userAgent),
+          ...headers,
+          ...this.getUserAgentHeader(),
           'content-type': 'application/json',
         },
         JSON.stringify(HTTPLibrary.convertKeysWithMapper(input, this.requestMapper)),
       );
 
     const response = retry
-      ? await this.retry(this.retryTimes, request, this.retryDelay)
+      ? await this.retry(this.retryAttempts, request, this.retryDelayMs)
       : await request();
 
     return HTTPLibrary.handleResponse(response);
@@ -108,14 +114,15 @@ export default class HTTPLibrary implements HTTPClient {
         'PATCH',
         url,
         {
-          ...HTTPLibrary.compositeHeaders(headers, this.userAgent),
+          ...headers,
+          ...this.getUserAgentHeader(),
           'content-type': 'application/json',
         },
         JSON.stringify(HTTPLibrary.convertKeysWithMapper(input, this.requestMapper)),
       );
 
     const response = retry
-      ? await this.retry(this.retryTimes, request, this.retryDelay)
+      ? await this.retry(this.retryAttempts, request, this.retryDelayMs)
       : await request();
 
     return HTTPLibrary.handleResponse(response);
@@ -201,12 +208,11 @@ export default class HTTPLibrary implements HTTPClient {
     });
   }
 
-  private static compositeHeaders(headers: Headers, userAgent: string): Headers {
-    const combinedHeaders: Headers = { ...headers };
-    if (typeof window === 'undefined') {
-      combinedHeaders['user-agent'] = userAgent;
+  private getUserAgentHeader(): Headers {
+    if (typeof window !== 'undefined') {
+      return {};
     }
-    return combinedHeaders;
+    return this.userAgentHeader;
   }
 
   /**
@@ -215,7 +221,7 @@ export default class HTTPLibrary implements HTTPClient {
    * @param {Object} jsonMapper - The JSON mapper containing key mappings.
    * @returns {any} - The object with converted keys.
    */
-  private static convertKeysWithMapper<T>(obj: T, jsonMapper: Record<string, string>): any {
+  private static convertKeysWithMapper<T>(obj: T, jsonMapper: Map<string, string>): any {
     if (!obj || typeof obj !== 'object') {
       return obj;
     }
@@ -227,7 +233,7 @@ export default class HTTPLibrary implements HTTPClient {
     const convertedObj: Record<string, any> = {};
     Object.entries(obj).forEach(([key, value]) => {
       if (value) {
-        const convertedKey = jsonMapper[key] || key;
+        const convertedKey = jsonMapper.get(key) || key;
         convertedObj[convertedKey] = HTTPLibrary.convertKeysWithMapper(value, jsonMapper);
       }
     });
