@@ -11,7 +11,7 @@ interface Response {
 
 export default class HTTPLibrary implements HTTPClient {
   readonly userAgentHeader: Headers = {
-    'User-Agent': 'liblab/0.1.16 DopplerSDK/1.1.1 typescript/5.1.6',
+    'User-Agent': 'liblab/0.1.17 DopplerSDK/1.1.2 typescript/5.2.2',
   };
 
   readonly retryAttempts: number = 3;
