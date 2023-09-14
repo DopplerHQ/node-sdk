@@ -24,8 +24,6 @@ A list of all services and services methods.
 
     - [Syncs](#syncs)
 
-    - [TrustedIps](#trustedips)
-
     - [WorkplaceRoles](#workplaceroles)
 
     - [ProjectRoles](#projectroles)
@@ -74,6 +72,9 @@ A list of all services and services methods.
 | [clone](#clone) | Clone |
 | [lock](#lock) | Lock |
 | [unlock](#unlock) | Unlock |
+| [addTrustedIp](#addtrustedip) | Add |
+| [listTrustedIps](#listtrustedips) | List |
+| [deleteTrustedIp](#deletetrustedip) | Delete |
 
 
 ## Secrets
@@ -147,15 +148,6 @@ A list of all services and services methods.
 | :-------- | :----------|
 | [create](#create) | Create |
 | [get](#get) | Retrieve |
-| [delete](#delete) | Delete |
-
-
-## TrustedIps
-
-| Method    | Description|
-| :-------- | :----------|
-| [add](#add) | Add |
-| [list](#list) | List |
 | [delete](#delete) | Delete |
 
 
@@ -243,7 +235,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+UpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -251,10 +243,14 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = {
+    description: 'PROJECT_DESCRIPTION',
+    name: 'PROJECT_NEW_NAME',
+    project: 'PROJECT_NAME',
+  };
   const result = await sdk.projects.update(input);
   console.log(result);
 })();
@@ -276,7 +272,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+GetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -284,7 +280,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projects.get('PROJECT_NAME');
@@ -314,10 +310,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { ip: 'ip' };
+  const input = { project: 'PROJECT_NAME' };
   const result = await sdk.projects.delete(input);
   console.log(result);
 })();
@@ -337,7 +333,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+CreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -345,10 +341,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { description: 'PROJECT_DESCRIPTION', name: 'PROJECT_NAME' };
   const result = await sdk.projects.create(input);
   console.log(result);
 })();
@@ -373,7 +369,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -381,7 +377,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projects.list({ page: 1, perPage: 20 });
@@ -407,7 +403,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+EnvironmentsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -415,10 +411,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { name: 'name', slug: 'slug' };
   const result = await sdk.environments.create(input, 'project');
   console.log(result);
 })();
@@ -440,7 +436,7 @@ List
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+EnvironmentsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -448,7 +444,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.environments.list('project');
@@ -473,7 +469,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+EnvironmentsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -481,7 +477,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.environments.get('project', 'environment');
@@ -514,7 +510,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.environments.delete('project', 'environment');
@@ -540,7 +536,7 @@ Rename
 
 **Return Type**
 
-[RenameResponse](/src/models/README.md#renameresponse)
+RenameResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -548,7 +544,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { name: 'name', slug: 'slug' };
@@ -572,7 +568,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+ConfigsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -580,10 +576,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { environment: 'ENVIRONMENT_ID', name: 'CONFIG_NAME', project: 'PROJECT_NAME' };
   const result = await sdk.configs.create(input);
   console.log(result);
 })();
@@ -614,7 +610,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ConfigsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -622,7 +618,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.configs.list('project', {
@@ -648,7 +644,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+ConfigsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -656,10 +652,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { config: 'CONFIG_NAME', name: 'CONFIG_NEW_NAME', project: 'PROJECT_NAME' };
   const result = await sdk.configs.update(input);
   console.log(result);
 })();
@@ -682,7 +678,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+ConfigsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -690,7 +686,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.configs.get('PROJECT_NAME', 'CONFIG_NAME');
@@ -712,7 +708,7 @@ Delete
 
 **Return Type**
 
-[DeleteResponse](/src/models/README.md#deleteresponse)
+DeleteResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -720,10 +716,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { ip: 'ip' };
+  const input = { config: 'CONFIG_NAME', project: 'PROJECT_NAME' };
   const result = await sdk.configs.delete(input);
   console.log(result);
 })();
@@ -743,7 +739,7 @@ Clone
 
 **Return Type**
 
-[CloneResponse](/src/models/README.md#cloneresponse)
+CloneResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -751,7 +747,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { config: 'CONFIG_NAME', name: 'NEW_CONFIG_NAME', project: 'PROJECT_NAME' };
@@ -774,7 +770,7 @@ Lock
 
 **Return Type**
 
-[LockResponse](/src/models/README.md#lockresponse)
+LockResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -782,7 +778,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { config: 'CONFIG_NAME', project: 'PROJECT_NAME' };
@@ -805,7 +801,7 @@ Unlock
 
 **Return Type**
 
-[UnlockResponse](/src/models/README.md#unlockresponse)
+UnlockResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -813,11 +809,114 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { config: 'CONFIG_NAME', project: 'PROJECT_NAME' };
   const result = await sdk.configs.unlock(input);
+  console.log(result);
+})();
+
+```
+
+### **addTrustedIp**
+Add
+- HTTP Method: POST
+- Endpoint: /v3/configs/config/trusted_ips
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string |  |
+| config | string |  |
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+AddTrustedIpResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { ip: 'ip' };
+  const result = await sdk.configs.addTrustedIp(input, 'project', 'config');
+  console.log(result);
+})();
+
+```
+
+### **listTrustedIps**
+List
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/trusted_ips
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string |  |
+| config | string |  |
+
+
+
+**Return Type**
+
+ListTrustedIpsResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.configs.listTrustedIps('project', 'config');
+  console.log(result);
+})();
+
+```
+
+### **deleteTrustedIp**
+Delete
+- HTTP Method: DELETE
+- Endpoint: /v3/configs/config/trusted_ips
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string |  |
+| config | string |  |
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+Returns a dict object.
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { ip: 'ip' };
+  const result = await sdk.configs.deleteTrustedIp(input, 'project', 'config');
   console.log(result);
 })();
 
@@ -837,7 +936,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+SecretsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -845,10 +944,18 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = {
+    config: 'CONFIG_NAME',
+    project: 'PROJECT_NAME',
+    secrets: {
+      ALGOLIA: 'N9TOPUCTO',
+      DATABASE: '${USER}@aws.dynamodb.com:9876',
+      STRIPE: 'sk_test_9YxLnoLDdvOPn2dfjBVPB',
+    },
+  };
   const result = await sdk.secrets.update(input);
   console.log(result);
 })();
@@ -882,7 +989,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+SecretsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -890,13 +997,13 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
     accepts: 'application/json',
     includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: -67525632,
+    dynamicSecretsTtlSec: 55056991,
     secrets: 'secrets',
     includeManagedSecrets: true,
   });
@@ -922,7 +1029,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+SecretsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -930,7 +1037,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.secrets.get('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
@@ -964,7 +1071,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.secrets.delete('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
@@ -999,7 +1106,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[DownloadResponse](/src/models/README.md#downloadresponse)
+DownloadResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1007,12 +1114,12 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.secrets.download('project', 'config', {
     format: 'json',
-    nameTransformer: 'lower-snake',
+    nameTransformer: 'dotnet-env',
     includeDynamicSecrets: true,
     dynamicSecretsTtlSec: 1800,
   });
@@ -1045,7 +1152,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[NamesResponse](/src/models/README.md#namesresponse)
+NamesResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1053,7 +1160,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.secrets.names('PROJECT_NAME', 'CONFIG_NAME', {
@@ -1078,7 +1185,7 @@ Update Note
 
 **Return Type**
 
-[UpdateNoteResponse](/src/models/README.md#updatenoteresponse)
+UpdateNoteResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1086,7 +1193,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { config: 'CONFIG_NAME', note: 'note', project: 'PROJECT_NAME', secret: 'secret' };
@@ -1121,7 +1228,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ConfigLogsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1129,7 +1236,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.configLogs.list('PROJECT_NAME', 'CONFIG_NAME', { page: 1, perPage: 20 });
@@ -1155,7 +1262,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+ConfigLogsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1163,7 +1270,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.configLogs.get('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
@@ -1189,7 +1296,7 @@ Rollback
 
 **Return Type**
 
-[RollbackResponse](/src/models/README.md#rollbackresponse)
+RollbackResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1197,7 +1304,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.configLogs.rollback('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
@@ -1215,7 +1322,7 @@ Me
 
 **Return Type**
 
-[MeResponse](/src/models/README.md#meresponse)
+MeResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1223,7 +1330,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.v3.me();
@@ -1251,7 +1358,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ActivityLogsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1259,7 +1366,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.activityLogs.list({ page: '1', perPage: 20 });
@@ -1283,7 +1390,7 @@ Retrieve
 
 **Return Type**
 
-[RetrieveResponse](/src/models/README.md#retrieveresponse)
+RetrieveResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1291,7 +1398,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.activityLogs.retrieve('LOG_ID');
@@ -1314,7 +1421,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+ServiceTokensCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1322,10 +1429,16 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = {
+    access: 'read',
+    config: 'CONFIG_NAME',
+    expire_at: '1938-04-29T14:22:42.0Z',
+    name: 'TOKEN_NAME',
+    project: 'PROJECT_NAME',
+  };
   const result = await sdk.serviceTokens.create(input);
   console.log(result);
 })();
@@ -1348,7 +1461,7 @@ List
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ServiceTokensListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1356,7 +1469,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.serviceTokens.list('PROJECT_NAME', 'CONFIG_NAME');
@@ -1378,7 +1491,7 @@ Delete
 
 **Return Type**
 
-[DeleteResponse](/src/models/README.md#deleteresponse)
+DeleteResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1386,10 +1499,15 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { ip: 'ip' };
+  const input = {
+    config: 'CONFIG_NAME',
+    project: 'PROJECT_NAME',
+    slug: 'TOKEN_SLUG',
+    token: 'TOKEN_VALUE',
+  };
   const result = await sdk.serviceTokens.delete(input);
   console.log(result);
 })();
@@ -1410,7 +1528,7 @@ Issue Lease
 
 **Return Type**
 
-[IssueLeaseResponse](/src/models/README.md#issueleaseresponse)
+IssueLeaseResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1418,14 +1536,14 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
     config: 'config',
     dynamic_secret: 'dynamic_secret',
     project: 'project',
-    ttl_sec: -64253753,
+    ttl_sec: -64149076,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -1446,7 +1564,7 @@ Revoke Lease
 
 **Return Type**
 
-[RevokeLeaseResponse](/src/models/README.md#revokeleaseresponse)
+RevokeLeaseResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1454,7 +1572,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
@@ -1483,7 +1601,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+IntegrationsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1491,10 +1609,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { data: {}, name: 'name', type_: 'type' };
   const result = await sdk.integrations.create(input);
   console.log(result);
 })();
@@ -1509,7 +1627,7 @@ List
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+IntegrationsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1517,7 +1635,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.integrations.list();
@@ -1541,7 +1659,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+IntegrationsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1549,7 +1667,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.integrations.get('integration');
@@ -1573,7 +1691,7 @@ Delete
 
 **Return Type**
 
-[DeleteResponse](/src/models/README.md#deleteresponse)
+IntegrationsDeleteResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1581,7 +1699,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.integrations.delete('integration');
@@ -1606,7 +1724,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+IntegrationsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1614,10 +1732,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { data: 'data', name: 'name' };
   const result = await sdk.integrations.update(input, 'integration');
   console.log(result);
 })();
@@ -1642,7 +1760,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+SyncsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1650,10 +1768,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = { data: {}, import_option: 'none', integration: 'integration' };
   const result = await sdk.syncs.create(input, 'project', 'config');
   console.log(result);
 })();
@@ -1677,7 +1795,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+SyncsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1685,7 +1803,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.syncs.get('project', 'config', 'sync');
@@ -1712,7 +1830,7 @@ Delete
 
 **Return Type**
 
-[DeleteResponse](/src/models/README.md#deleteresponse)
+SyncsDeleteResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1720,119 +1838,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.syncs.delete('project', 'config', 'sync', true);
-  console.log(result);
-})();
-
-```
-
-
-### **add**
-Add
-- HTTP Method: POST
-- Endpoint: /v3/configs/config/trusted_ips
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string |  |
-| config | string |  |
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-[AddResponse](/src/models/README.md#addresponse)
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
-
-(async () => {
-  const input = {
-    environments: ['esse irure id incididunt', 'culpa'],
-    role: 'role',
-    slug: 'slug',
-    type_: 'invite',
-  };
-  const result = await sdk.trustedIps.add(input, 'project', 'config');
-  console.log(result);
-})();
-
-```
-
-### **list**
-List
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/trusted_ips
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string |  |
-| config | string |  |
-
-
-
-**Return Type**
-
-[ListResponse](/src/models/README.md#listresponse)
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
-
-(async () => {
-  const result = await sdk.trustedIps.list('project', 'config');
-  console.log(result);
-})();
-
-```
-
-### **delete**
-Delete
-- HTTP Method: DELETE
-- Endpoint: /v3/configs/config/trusted_ips
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string |  |
-| config | string |  |
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-Returns a dict object.
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
-
-(async () => {
-  const input = { ip: 'ip' };
-  const result = await sdk.trustedIps.delete(input, 'project', 'config');
   console.log(result);
 })();
 
@@ -1847,7 +1856,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+WorkplaceRolesCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1855,7 +1864,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.create();
@@ -1872,7 +1881,7 @@ List
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+WorkplaceRolesListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1880,7 +1889,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.list();
@@ -1897,7 +1906,7 @@ List Permissions
 
 **Return Type**
 
-[ListPermissionsResponse](/src/models/README.md#listpermissionsresponse)
+ListPermissionsResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1905,7 +1914,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.listPermissions();
@@ -1929,7 +1938,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+WorkplaceRolesGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1937,7 +1946,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.get('role');
@@ -1961,7 +1970,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+WorkplaceRolesUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1969,7 +1978,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.update('role');
@@ -2001,7 +2010,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.workplaceRoles.delete('role');
@@ -2019,7 +2028,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+ProjectRolesCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2027,7 +2036,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.create();
@@ -2044,7 +2053,7 @@ List
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ProjectRolesListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2052,7 +2061,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.list();
@@ -2076,7 +2085,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+ProjectRolesGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2084,7 +2093,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.get('role');
@@ -2108,7 +2117,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+ProjectRolesUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2116,7 +2125,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.update('role');
@@ -2148,7 +2157,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.delete('role');
@@ -2165,7 +2174,7 @@ List Permissions
 
 **Return Type**
 
-[ListPermissionsResponse](/src/models/README.md#listpermissionsresponse)
+ProjectRolesListPermissionsResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2173,7 +2182,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectRoles.listPermissions();
@@ -2199,7 +2208,7 @@ Add
 
 **Return Type**
 
-[AddResponse](/src/models/README.md#addresponse)
+AddResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2207,14 +2216,14 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
-    environments: ['proident', 'eiusmod est'],
+    environments: ['labore nisi', 'ut esse in elit Duis'],
     role: 'role',
     slug: 'slug',
-    type_: 'workplace_user',
+    type_: 'group',
   };
   const result = await sdk.projectMembers.add(input, 'project');
   console.log(result);
@@ -2245,7 +2254,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ProjectMembersListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2253,7 +2262,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.projectMembers.list('project', { page: 1, perPage: 20 });
@@ -2279,7 +2288,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+ProjectMembersGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2287,10 +2296,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.projectMembers.get('project', 'workplace_user', 'slug');
+  const result = await sdk.projectMembers.get('project', 'group', 'slug');
   console.log(result);
 })();
 
@@ -2314,7 +2323,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+ProjectMembersUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2322,11 +2331,11 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
-  const result = await sdk.projectMembers.update(input, 'workplace_user', 'slug', 'project');
+  const input = { environments: ['sit ipsum enim Duis ut', 'ullamco dolore'], role: 'role' };
+  const result = await sdk.projectMembers.update(input, 'service_account', 'slug', 'project');
   console.log(result);
 })();
 
@@ -2357,10 +2366,10 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.projectMembers.delete('workplace_user', 'slug', 'project');
+  const result = await sdk.projectMembers.delete('service_account', 'slug', 'project');
   console.log(result);
 })();
 
@@ -2385,7 +2394,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+InvitesListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2393,7 +2402,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.invites.list({ page: 1, perPage: 20 });
@@ -2416,7 +2425,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+ServiceAccountsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2424,10 +2433,16 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = {
+    name: 'name',
+    workplace_role: {
+      identifier: 'identifier',
+      permissions: ['laborum Lorem', 'laborum pariatur'],
+    },
+  };
   const result = await sdk.serviceAccounts.create(input);
   console.log(result);
 })();
@@ -2452,7 +2467,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+ServiceAccountsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2460,7 +2475,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.serviceAccounts.list({ page: 1, perPage: 20 });
@@ -2484,7 +2499,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+ServiceAccountsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2492,7 +2507,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.serviceAccounts.get('slug');
@@ -2517,7 +2532,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+ServiceAccountsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2525,10 +2540,13 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { default_project_role: 'default_project_role', name: 'name' };
+  const input = {
+    name: 'name',
+    workplace_role: { identifier: 'identifier', permissions: ['consequat elit', 'sint'] },
+  };
   const result = await sdk.serviceAccounts.update(input, 'slug');
   console.log(result);
 })();
@@ -2558,7 +2576,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.serviceAccounts.delete('slug');
@@ -2581,7 +2599,7 @@ Create
 
 **Return Type**
 
-[CreateResponse](/src/models/README.md#createresponse)
+GroupsCreateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2589,7 +2607,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { default_project_role: 'default_project_role', name: 'name' };
@@ -2617,7 +2635,7 @@ Optional parameters are passed as part of the last parameter to the method. Ex. 
 
 **Return Type**
 
-[ListResponse](/src/models/README.md#listresponse)
+GroupsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2625,7 +2643,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.groups.list({ page: 1, perPage: 20 });
@@ -2649,7 +2667,7 @@ Retrieve
 
 **Return Type**
 
-[GetResponse](/src/models/README.md#getresponse)
+GroupsGetResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2657,7 +2675,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.groups.get('slug');
@@ -2682,7 +2700,7 @@ Update
 
 **Return Type**
 
-[UpdateResponse](/src/models/README.md#updateresponse)
+GroupsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -2690,7 +2708,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { default_project_role: 'default_project_role', name: 'name' };
@@ -2723,7 +2741,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.groups.delete('slug');
@@ -2756,7 +2774,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = { slug: 'slug', type_: 'workplace_user' };
@@ -2776,7 +2794,7 @@ Delete Member
 | Name    | Type| Description |
 | :-------- | :----------| :----------|
 | slug | string | The group's slug |
-| type | [Type](/src/models/README.md#type) |  |
+| type | [GroupsType](/src/models/README.md#groupstype) |  |
 | memberSlug | string | The member's slug |
 
 
@@ -2791,7 +2809,7 @@ import { DopplerSDK } from './src';
 
 const DOPPLERSDK_ACCESS_TOKEN = '';
 
-const sdk = new DopplerSDK(DOPPLERSDK_ACCESS_TOKEN);
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.groups.deleteMember('slug', 'workplace_user', 'member_slug');
