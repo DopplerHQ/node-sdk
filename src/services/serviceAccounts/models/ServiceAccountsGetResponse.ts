@@ -1,3 +1,5 @@
+type Permissions = unknown[];
+
 export interface ServiceAccountsGetResponse {
   service_account?: ServiceAccount;
 }
@@ -9,7 +11,7 @@ interface ServiceAccount {
 }
 interface WorkplaceRole {
   name?: string;
-  permissions?: string[];
+  permissions?: Permissions;
   identifier?: string;
   created_at?: string;
   is_custom_role?: boolean;

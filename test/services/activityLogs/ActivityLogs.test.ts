@@ -22,10 +22,10 @@ describe('test ActivityLogs', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/logs?page=magnam&per_page=6')
+        .get('/v3/logs?page=aperiam&per_page=6')
         .reply(200, { data: {} });
       return sdk.activityLogs
-        .list({ page: 'magnam', perPage: 6 })
+        .list({ page: 'aperiam', perPage: 6 })
         .then((r: any) => expect(r.data).toEqual({}));
     });
   });
@@ -33,23 +33,23 @@ describe('test ActivityLogs', () => {
   describe('test retrieve', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/logs/log?log=voluptas')
+        .get('/v3/logs/log?log=iusto')
         .reply(200, { data: {} });
-      return sdk.activityLogs.retrieve('voluptas').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.activityLogs.retrieve('iusto').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/logs/log?log=voluptatum')
+        .get('/v3/logs/log?log=optio')
         .reply(200, { data: {} });
       return expect(async () => await sdk.activityLogs.retrieve()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/logs/log?log=fuga')
+        .get('/v3/logs/log?log=at')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.activityLogs.retrieve('fuga')).rejects.toThrow();
+      return expect(async () => await sdk.activityLogs.retrieve('at')).rejects.toThrow();
     });
   });
 });

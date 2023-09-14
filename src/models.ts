@@ -19,6 +19,8 @@ export type { SecretsListResponse } from './services/secrets/models/SecretsListR
 export type { SecretsUpdateResponse } from './services/secrets/models/SecretsUpdateResponse';
 export type { ConfigLogsListResponse } from './services/configLogs/models/ConfigLogsListResponse';
 export type { ConfigLogsGetResponse } from './services/configLogs/models/ConfigLogsGetResponse';
+export type { WorkplaceGetResponse } from './services/workplace/models/WorkplaceGetResponse';
+export type { WorkplaceUpdateResponse } from './services/workplace/models/WorkplaceUpdateResponse';
 export type { ActivityLogsListResponse } from './services/activityLogs/models/ActivityLogsListResponse';
 export type { RetrieveResponse } from './services/activityLogs/models/RetrieveResponse';
 export type { SecretsGetResponse } from './services/secrets/models/SecretsGetResponse';
@@ -28,6 +30,8 @@ export type { ServiceTokensCreateResponse } from './services/serviceTokens/model
 export type { CloneResponse } from './services/configs/models/CloneResponse';
 export type { LockResponse } from './services/configs/models/LockResponse';
 export type { UnlockResponse } from './services/configs/models/UnlockResponse';
+export type { GetUsersResponse } from './services/audit/models/GetUsersResponse';
+export type { GetUserResponse } from './services/audit/models/GetUserResponse';
 export type { DownloadResponse } from './services/secrets/models/DownloadResponse';
 export type { IssueLeaseResponse } from './services/dynamicSecrets/models/IssueLeaseResponse';
 export type { RevokeLeaseResponse } from './services/dynamicSecrets/models/RevokeLeaseResponse';
@@ -76,6 +80,7 @@ export type { ConfigsUpdateRequest } from './services/configs/models/ConfigsUpda
 export type { ConfigsDeleteRequest } from './services/configs/models/ConfigsDeleteRequest';
 export type { RenameRequest } from './services/environments/models/RenameRequest';
 export type { SecretsUpdateRequest } from './services/secrets/models/SecretsUpdateRequest';
+export type { WorkplaceUpdateRequest } from './services/workplace/models/WorkplaceUpdateRequest';
 export type { ServiceTokensCreateRequest } from './services/serviceTokens/models/ServiceTokensCreateRequest';
 export type { ServiceTokensDeleteRequest } from './services/serviceTokens/models/ServiceTokensDeleteRequest';
 export type { CloneRequest } from './services/configs/models/CloneRequest';
@@ -83,6 +88,7 @@ export type { LockRequest } from './services/configs/models/LockRequest';
 export type { UnlockRequest } from './services/configs/models/UnlockRequest';
 export type { IssueLeaseRequest } from './services/dynamicSecrets/models/IssueLeaseRequest';
 export type { RevokeLeaseRequest } from './services/dynamicSecrets/models/RevokeLeaseRequest';
+export type { RevokeRequest } from './services/auth/models/RevokeRequest';
 export type { UpdateNoteRequest } from './services/secrets/models/UpdateNoteRequest';
 export type { IntegrationsCreateRequest } from './services/integrations/models/IntegrationsCreateRequest';
 export type { IntegrationsUpdateRequest } from './services/integrations/models/IntegrationsUpdateRequest';
