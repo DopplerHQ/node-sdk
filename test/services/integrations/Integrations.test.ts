@@ -40,69 +40,69 @@ describe('test Integrations', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=maxime')
+        .get('/v3/integrations/integration?integration=molestias')
         .reply(200, { data: {} });
-      return sdk.integrations.get('maxime').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.get('molestias').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=similique')
+        .get('/v3/integrations/integration?integration=veniam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=dicta')
+        .get('/v3/integrations/integration?integration=ipsam')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.get('dicta')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.get('ipsam')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=commodi')
+        .put('/v3/integrations/integration?integration=porro')
         .reply(200, { data: {} });
-      return sdk.integrations.update({}, 'commodi').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.update({}, 'porro').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=quam')
+        .put('/v3/integrations/integration?integration=omnis')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=temporibus')
+        .put('/v3/integrations/integration?integration=nulla')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.update({}, 'temporibus')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.update({}, 'nulla')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=enim')
+        .delete('/v3/integrations/integration?integration=neque')
         .reply(200, { data: {} });
-      return sdk.integrations.delete('enim').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.delete('neque').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=repellendus')
+        .delete('/v3/integrations/integration?integration=magnam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=quia')
+        .delete('/v3/integrations/integration?integration=omnis')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.delete('quia')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.delete('omnis')).rejects.toThrow();
     });
   });
 });

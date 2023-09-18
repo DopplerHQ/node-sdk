@@ -12,17 +12,23 @@ A list of all services and services methods.
 
     - [ConfigLogs](#configlogs)
 
-    - [V3](#v3)
+    - [Workplace](#workplace)
 
     - [ActivityLogs](#activitylogs)
 
     - [ServiceTokens](#servicetokens)
 
+    - [Audit](#audit)
+
     - [DynamicSecrets](#dynamicsecrets)
+
+    - [Auth](#auth)
 
     - [Integrations](#integrations)
 
     - [Syncs](#syncs)
+
+    - [V3](#v3)
 
     - [WorkplaceRoles](#workplaceroles)
 
@@ -99,11 +105,12 @@ A list of all services and services methods.
 | [rollback](#rollback) | Rollback |
 
 
-## V3
+## Workplace
 
 | Method    | Description|
 | :-------- | :----------|
-| [me](#me) | Me |
+| [update](#update) | Update |
+| [get](#get) | Retrieve |
 
 
 ## ActivityLogs
@@ -123,12 +130,27 @@ A list of all services and services methods.
 | [delete](#delete) | Delete |
 
 
+## Audit
+
+| Method    | Description|
+| :-------- | :----------|
+| [getUsers](#getusers) | Workplace Users |
+| [getUser](#getuser) | Workplace User |
+
+
 ## DynamicSecrets
 
 | Method    | Description|
 | :-------- | :----------|
 | [issueLease](#issuelease) | Issue Lease |
 | [revokeLease](#revokelease) | Revoke Lease |
+
+
+## Auth
+
+| Method    | Description|
+| :-------- | :----------|
+| [revoke](#revoke) | Revoke |
 
 
 ## Integrations
@@ -149,6 +171,13 @@ A list of all services and services methods.
 | [create](#create) | Create |
 | [get](#get) | Retrieve |
 | [delete](#delete) | Delete |
+
+
+## V3
+
+| Method    | Description|
+| :-------- | :----------|
+| [me](#me) | Me |
 
 
 ## WorkplaceRoles
@@ -1003,7 +1032,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
   const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
     accepts: 'application/json',
     includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 55056991,
+    dynamicSecretsTtlSec: 25735424,
     secrets: 'secrets',
     includeManagedSecrets: true,
   });
@@ -1119,7 +1148,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const result = await sdk.secrets.download('project', 'config', {
     format: 'json',
-    nameTransformer: 'dotnet-env',
+    nameTransformer: 'camel',
     includeDynamicSecrets: true,
     dynamicSecretsTtlSec: 1800,
   });
@@ -1314,15 +1343,20 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 ```
 
 
-### **me**
-Me
-- HTTP Method: GET
-- Endpoint: /v3/me
+### **update**
+Update
+- HTTP Method: POST
+- Endpoint: /v3/workplace
+
+**Required Parameters**
+
+| input | object | Request body. |
+
 
 
 **Return Type**
 
-MeResponse
+WorkplaceUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1333,7 +1367,42 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.v3.me();
+  const input = { billing_email: 'billing_email', name: 'name' };
+  const result = await sdk.workplace.update(input);
+  console.log(result);
+})();
+
+```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/workplace
+
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| settings | boolean | If true, the api will return more information if the workplace has e.g. SAML enabled and SCIM enabled |
+
+
+**Return Type**
+
+WorkplaceGetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.workplace.get({ settings: true });
   console.log(result);
 })();
 
@@ -1435,7 +1504,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
   const input = {
     access: 'read',
     config: 'CONFIG_NAME',
-    expire_at: '1938-04-29T14:22:42.0Z',
+    expire_at: '1926-02-24T15:16:51.0Z',
     name: 'TOKEN_NAME',
     project: 'PROJECT_NAME',
   };
@@ -1515,6 +1584,81 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 ```
 
 
+### **getUsers**
+Workplace Users
+- HTTP Method: GET
+- Endpoint: /v3/workplace/users
+
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| settings | boolean | If true, the api will return more information if users have e.g. SAML enabled and/or Multi Factor Auth enabled |
+| page | number | The page of users to fetch |
+
+
+**Return Type**
+
+GetUsersResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.audit.getUsers({ settings: true, page: 1 });
+  console.log(result);
+})();
+
+```
+
+### **getUser**
+Workplace User
+- HTTP Method: GET
+- Endpoint: /v3/workplace/users/{workplace_user_id}
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| workplaceUserId | string | The ID of the workplace user |
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| settings | boolean | If true, the api will return more information if the user has e.g. SAML enabled and/or Multi Factor Auth enabled |
+
+
+**Return Type**
+
+GetUserResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.audit.getUser('workplace_user_id', { settings: true });
+  console.log(result);
+})();
+
+```
+
+
 ### **issueLease**
 Issue Lease
 - HTTP Method: POST
@@ -1543,7 +1687,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     config: 'config',
     dynamic_secret: 'dynamic_secret',
     project: 'project',
-    ttl_sec: -64149076,
+    ttl_sec: 64397939,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -1582,6 +1726,38 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     slug: 'slug',
   };
   const result = await sdk.dynamicSecrets.revokeLease(input);
+  console.log(result);
+})();
+
+```
+
+
+### **revoke**
+Revoke
+- HTTP Method: POST
+- Endpoint: /v3/auth/revoke
+
+**Required Parameters**
+
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+Returns a dict object.
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { token: 'token' };
+  const result = await sdk.auth.revoke(input);
   console.log(result);
 })();
 
@@ -1842,6 +2018,32 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.syncs.delete('project', 'config', 'sync', true);
+  console.log(result);
+})();
+
+```
+
+
+### **me**
+Me
+- HTTP Method: GET
+- Endpoint: /v3/me
+
+
+**Return Type**
+
+MeResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.v3.me();
   console.log(result);
 })();
 
@@ -2220,7 +2422,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
-    environments: ['labore nisi', 'ut esse in elit Duis'],
+    environments: ['elit est', 'minim magna'],
     role: 'role',
     slug: 'slug',
     type_: 'group',
@@ -2299,7 +2501,7 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.projectMembers.get('project', 'group', 'slug');
+  const result = await sdk.projectMembers.get('project', 'workplace_user', 'slug');
   console.log(result);
 })();
 
@@ -2334,7 +2536,7 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { environments: ['sit ipsum enim Duis ut', 'ullamco dolore'], role: 'role' };
+  const input = { environments: ['est ut', 'voluptate amet in consequat commodo'], role: 'role' };
   const result = await sdk.projectMembers.update(input, 'service_account', 'slug', 'project');
   console.log(result);
 })();
@@ -2369,7 +2571,7 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.projectMembers.delete('service_account', 'slug', 'project');
+  const result = await sdk.projectMembers.delete('group', 'slug', 'project');
   console.log(result);
 })();
 
@@ -2438,10 +2640,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = {
     name: 'name',
-    workplace_role: {
-      identifier: 'identifier',
-      permissions: ['laborum Lorem', 'laborum pariatur'],
-    },
+    workplace_role: { identifier: 'identifier', permissions: ['in ullamco commodo', 'labore in'] },
   };
   const result = await sdk.serviceAccounts.create(input);
   console.log(result);
@@ -2545,7 +2744,10 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = {
     name: 'name',
-    workplace_role: { identifier: 'identifier', permissions: ['consequat elit', 'sint'] },
+    workplace_role: {
+      identifier: 'identifier',
+      permissions: ['deserunt Ut sunt et ut', 'eu ea laborum consectetur'],
+    },
   };
   const result = await sdk.serviceAccounts.update(input, 'slug');
   console.log(result);
