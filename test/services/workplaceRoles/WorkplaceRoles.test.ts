@@ -49,69 +49,69 @@ describe('test WorkplaceRoles', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/roles/role/eaque')
+        .get('/v3/workplace/roles/role/ut')
         .reply(200, { data: {} });
-      return sdk.workplaceRoles.get('eaque').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.workplaceRoles.get('ut').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/roles/role/consectetur')
+        .get('/v3/workplace/roles/role/recusandae')
         .reply(200, { data: {} });
       return expect(async () => await sdk.workplaceRoles.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/roles/role/culpa')
+        .get('/v3/workplace/roles/role/magni')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.workplaceRoles.get('culpa')).rejects.toThrow();
+      return expect(async () => await sdk.workplaceRoles.get('magni')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/roles/role/quae')
+        .delete('/v3/workplace/roles/role/totam')
         .reply(200, { data: {} });
-      return sdk.workplaceRoles.delete('quae').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.workplaceRoles.delete('totam').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/roles/role/similique')
+        .delete('/v3/workplace/roles/role/molestiae')
         .reply(200, { data: {} });
       return expect(async () => await sdk.workplaceRoles.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/roles/role/consequuntur')
+        .delete('/v3/workplace/roles/role/sunt')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.workplaceRoles.delete('consequuntur')).rejects.toThrow();
+      return expect(async () => await sdk.workplaceRoles.delete('sunt')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/roles/role/aut')
+        .patch('/v3/workplace/roles/role/reiciendis')
         .reply(200, { data: {} });
-      return sdk.workplaceRoles.update('aut').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.workplaceRoles.update('reiciendis').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/roles/role/soluta')
+        .patch('/v3/workplace/roles/role/voluptate')
         .reply(200, { data: {} });
       return expect(async () => await sdk.workplaceRoles.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/roles/role/nisi')
+        .patch('/v3/workplace/roles/role/amet')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.workplaceRoles.update('nisi')).rejects.toThrow();
+      return expect(async () => await sdk.workplaceRoles.update('amet')).rejects.toThrow();
     });
   });
 });

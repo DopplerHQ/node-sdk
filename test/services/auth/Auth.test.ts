@@ -27,4 +27,11 @@ describe('test Auth', () => {
       return sdk.auth.revoke({}).then((r: any) => expect(r.data).toEqual({}));
     });
   });
+
+  describe('test me', () => {
+    test('test api call', () => {
+      const scope = nock('https://api.doppler.com').get('/v3/me').reply(200, { data: {} });
+      return sdk.auth.me().then((r: any) => expect(r.data).toEqual({}));
+    });
+  });
 });
