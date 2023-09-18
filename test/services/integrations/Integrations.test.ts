@@ -40,69 +40,69 @@ describe('test Integrations', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=molestias')
+        .get('/v3/integrations/integration?integration=ipsa')
         .reply(200, { data: {} });
-      return sdk.integrations.get('molestias').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.get('ipsa').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=veniam')
+        .get('/v3/integrations/integration?integration=labore')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/integrations/integration?integration=ipsam')
+        .get('/v3/integrations/integration?integration=tempora')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.get('ipsam')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.get('tempora')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=porro')
+        .put('/v3/integrations/integration?integration=soluta')
         .reply(200, { data: {} });
-      return sdk.integrations.update({}, 'porro').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.update({}, 'soluta').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=omnis')
+        .put('/v3/integrations/integration?integration=nam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .put('/v3/integrations/integration?integration=nulla')
+        .put('/v3/integrations/integration?integration=tempora')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.update({}, 'nulla')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.update({}, 'tempora')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=neque')
+        .delete('/v3/integrations/integration?integration=deserunt')
         .reply(200, { data: {} });
-      return sdk.integrations.delete('neque').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.integrations.delete('deserunt').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=magnam')
+        .delete('/v3/integrations/integration?integration=eaque')
         .reply(200, { data: {} });
       return expect(async () => await sdk.integrations.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/integrations/integration?integration=omnis')
+        .delete('/v3/integrations/integration?integration=modi')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.integrations.delete('omnis')).rejects.toThrow();
+      return expect(async () => await sdk.integrations.delete('modi')).rejects.toThrow();
     });
   });
 });

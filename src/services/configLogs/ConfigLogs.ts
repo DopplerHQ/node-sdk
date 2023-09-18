@@ -1,7 +1,7 @@
 import BaseService from '../../BaseService';
 
 import { ConfigLogsListResponse } from './models/ConfigLogsListResponse';
-import { ConfigLogsGetResponse } from './models/ConfigLogsGetResponse';
+import { GetResponse } from './models/GetResponse';
 import { RollbackResponse } from './models/RollbackResponse';
 
 import { serializeQuery } from '../../http/QuerySerializer';
@@ -64,9 +64,9 @@ export class ConfigLogsService extends BaseService {
    * @param project Unique identifier for the project object.
    * @param config Name of the config object.
    * @param log Unique identifier for the log object.
-   * @returns {Promise<ConfigLogsGetResponse>} - The promise with the result
+   * @returns {Promise<GetResponse>} - The promise with the result
    */
-  async get(project: string, config: string, log: string): Promise<ConfigLogsGetResponse> {
+  async get(project: string, config: string, log: string): Promise<GetResponse> {
     if (project === undefined || config === undefined || log === undefined) {
       throw new Error(
         'The following are required parameters: project,config,log, cannot be empty or blank',
@@ -92,7 +92,7 @@ export class ConfigLogsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as ConfigLogsGetResponse;
+    const responseModel = response.data as GetResponse;
     return responseModel;
   }
 
