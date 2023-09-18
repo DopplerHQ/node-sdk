@@ -40,69 +40,69 @@ describe('test ProjectRoles', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/roles/role/explicabo')
+        .get('/v3/projects/roles/role/pariatur')
         .reply(200, { data: {} });
-      return sdk.projectRoles.get('explicabo').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projectRoles.get('pariatur').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/roles/role/laudantium')
+        .get('/v3/projects/roles/role/aliquid')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectRoles.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/roles/role/voluptates')
+        .get('/v3/projects/roles/role/asperiores')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projectRoles.get('voluptates')).rejects.toThrow();
+      return expect(async () => await sdk.projectRoles.get('asperiores')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/roles/role/iste')
+        .delete('/v3/projects/roles/role/quaerat')
         .reply(200, { data: {} });
-      return sdk.projectRoles.delete('iste').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projectRoles.delete('quaerat').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/roles/role/quasi')
+        .delete('/v3/projects/roles/role/possimus')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectRoles.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/roles/role/fugiat')
+        .delete('/v3/projects/roles/role/iure')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projectRoles.delete('fugiat')).rejects.toThrow();
+      return expect(async () => await sdk.projectRoles.delete('iure')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/roles/role/in')
+        .patch('/v3/projects/roles/role/quibusdam')
         .reply(200, { data: {} });
-      return sdk.projectRoles.update('in').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projectRoles.update('quibusdam').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/roles/role/blanditiis')
+        .patch('/v3/projects/roles/role/laborum')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectRoles.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/roles/role/reiciendis')
+        .patch('/v3/projects/roles/role/quaerat')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projectRoles.update('reiciendis')).rejects.toThrow();
+      return expect(async () => await sdk.projectRoles.update('quaerat')).rejects.toThrow();
     });
   });
 

@@ -1,5 +1,3 @@
-type Permissions = unknown[];
-
 export interface InvitesListResponse {
   invites?: {
     slug?: string;
@@ -10,7 +8,7 @@ export interface InvitesListResponse {
 }
 interface WorkplaceRole {
   name?: string;
-  permissions?: Permissions;
+  permissions?: string[];
   identifier?: string;
   created_at?: string;
   is_custom_role?: boolean;
