@@ -4,17 +4,17 @@ A list of all services and services methods.
 
     - [Projects](#projects)
 
-    - [Environments](#environments)
-
-    - [Configs](#configs)
-
     - [Secrets](#secrets)
 
     - [ConfigLogs](#configlogs)
 
-    - [Workplace](#workplace)
+    - [Environments](#environments)
+
+    - [Configs](#configs)
 
     - [ActivityLogs](#activitylogs)
+
+    - [Workplace](#workplace)
 
     - [ServiceTokens](#servicetokens)
 
@@ -28,8 +28,6 @@ A list of all services and services methods.
 
     - [Syncs](#syncs)
 
-    - [V3](#v3)
-
     - [WorkplaceRoles](#workplaceroles)
 
     - [ProjectRoles](#projectroles)
@@ -41,6 +39,8 @@ A list of all services and services methods.
     - [ServiceAccounts](#serviceaccounts)
 
     - [Groups](#groups)
+
+    - [Users](#users)
 - [All Methods](#all-methods)
 
 
@@ -48,39 +48,11 @@ A list of all services and services methods.
 
 | Method    | Description|
 | :-------- | :----------|
-| [update](#update) | Update |
-| [get](#get) | Retrieve |
-| [delete](#delete) | Delete |
-| [create](#create) | Create |
-| [list](#list) | List |
-
-
-## Environments
-
-| Method    | Description|
-| :-------- | :----------|
-| [create](#create) | Create |
-| [list](#list) | List |
-| [get](#get) | Retrieve |
-| [delete](#delete) | Delete |
-| [rename](#rename) | Rename |
-
-
-## Configs
-
-| Method    | Description|
-| :-------- | :----------|
 | [create](#create) | Create |
 | [list](#list) | List |
 | [update](#update) | Update |
 | [get](#get) | Retrieve |
 | [delete](#delete) | Delete |
-| [clone](#clone) | Clone |
-| [lock](#lock) | Lock |
-| [unlock](#unlock) | Unlock |
-| [addTrustedIp](#addtrustedip) | Add |
-| [listTrustedIps](#listtrustedips) | List |
-| [deleteTrustedIp](#deletetrustedip) | Delete |
 
 
 ## Secrets
@@ -105,20 +77,48 @@ A list of all services and services methods.
 | [rollback](#rollback) | Rollback |
 
 
-## Workplace
+## Environments
 
 | Method    | Description|
 | :-------- | :----------|
+| [get](#get) | Retrieve |
+| [delete](#delete) | Delete |
+| [rename](#rename) | Rename |
+| [create](#create) | Create |
+| [list](#list) | List |
+
+
+## Configs
+
+| Method    | Description|
+| :-------- | :----------|
+| [create](#create) | Create |
+| [list](#list) | List |
 | [update](#update) | Update |
 | [get](#get) | Retrieve |
+| [delete](#delete) | Delete |
+| [clone](#clone) | Clone |
+| [lock](#lock) | Lock |
+| [unlock](#unlock) | Unlock |
+| [addTrustedIp](#addtrustedip) | Add |
+| [listTrustedIps](#listtrustedips) | List |
+| [deleteTrustedIp](#deletetrustedip) | Delete |
 
 
 ## ActivityLogs
 
 | Method    | Description|
 | :-------- | :----------|
-| [list](#list) | List |
 | [retrieve](#retrieve) | Retrieve |
+| [list](#list) | List |
+
+
+## Workplace
+
+| Method    | Description|
+| :-------- | :----------|
+| [update](#update) | Update |
+| [get](#get) | Retrieve |
 
 
 ## ServiceTokens
@@ -134,7 +134,6 @@ A list of all services and services methods.
 
 | Method    | Description|
 | :-------- | :----------|
-| [getUsers](#getusers) | Workplace Users |
 | [getUser](#getuser) | Workplace User |
 
 
@@ -151,6 +150,7 @@ A list of all services and services methods.
 | Method    | Description|
 | :-------- | :----------|
 | [revoke](#revoke) | Revoke |
+| [me](#me) | Me |
 
 
 ## Integrations
@@ -171,13 +171,6 @@ A list of all services and services methods.
 | [create](#create) | Create |
 | [get](#get) | Retrieve |
 | [delete](#delete) | Delete |
-
-
-## V3
-
-| Method    | Description|
-| :-------- | :----------|
-| [me](#me) | Me |
 
 
 ## WorkplaceRoles
@@ -246,108 +239,18 @@ A list of all services and services methods.
 | [deleteMember](#deletemember) | Delete Member |
 
 
+## Users
+
+| Method    | Description|
+| :-------- | :----------|
+| [list](#list) | List |
+| [get](#get) | Retrieve |
+
+
 
 
 ## All Methods
 
-
-### **update**
-Update
-- HTTP Method: POST
-- Endpoint: /v3/projects/project
-
-**Required Parameters**
-
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-UpdateResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const input = {
-    description: 'PROJECT_DESCRIPTION',
-    name: 'PROJECT_NEW_NAME',
-    project: 'PROJECT_NAME',
-  };
-  const result = await sdk.projects.update(input);
-  console.log(result);
-})();
-
-```
-
-### **get**
-Retrieve
-- HTTP Method: GET
-- Endpoint: /v3/projects/project
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-
-
-
-**Return Type**
-
-GetResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.projects.get('PROJECT_NAME');
-  console.log(result);
-})();
-
-```
-
-### **delete**
-Delete
-- HTTP Method: DELETE
-- Endpoint: /v3/projects/project
-
-**Required Parameters**
-
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-Returns a dict object.
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const input = { project: 'PROJECT_NAME' };
-  const result = await sdk.projects.delete(input);
-  console.log(result);
-})();
-
-```
 
 ### **create**
 Create
@@ -415,24 +318,20 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 ```
 
-
-### **create**
-Create
+### **update**
+Update
 - HTTP Method: POST
-- Endpoint: /v3/environments
+- Endpoint: /v3/projects/project
 
 **Required Parameters**
 
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | The project's name |
 | input | object | Request body. |
 
 
 
 **Return Type**
 
-EnvironmentsCreateResponse
+ProjectsUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -443,8 +342,115 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { name: 'name', slug: 'slug' };
-  const result = await sdk.environments.create(input, 'project');
+  const input = {
+    description: 'PROJECT_DESCRIPTION',
+    name: 'PROJECT_NEW_NAME',
+    project: 'PROJECT_NAME',
+  };
+  const result = await sdk.projects.update(input);
+  console.log(result);
+})();
+
+```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/projects/project
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+
+
+
+**Return Type**
+
+ProjectsGetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.projects.get('PROJECT_NAME');
+  console.log(result);
+})();
+
+```
+
+### **delete**
+Delete
+- HTTP Method: DELETE
+- Endpoint: /v3/projects/project
+
+**Required Parameters**
+
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+Returns a dict object.
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { project: 'PROJECT_NAME' };
+  const result = await sdk.projects.delete(input);
+  console.log(result);
+})();
+
+```
+
+
+### **update**
+Update
+- HTTP Method: POST
+- Endpoint: /v3/configs/config/secrets
+
+**Required Parameters**
+
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+UpdateResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = {
+    config: 'CONFIG_NAME',
+    project: 'PROJECT_NAME',
+    secrets: {
+      ALGOLIA: 'N9TOPUCTO',
+      DATABASE: '${USER}@aws.dynamodb.com:9876',
+      STRIPE: 'sk_test_9YxLnoLDdvOPn2dfjBVPB',
+    },
+  };
+  const result = await sdk.secrets.update(input);
   console.log(result);
 })();
 
@@ -453,19 +459,31 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 ### **list**
 List
 - HTTP Method: GET
-- Endpoint: /v3/environments
+- Endpoint: /v3/configs/config/secrets
 
 **Required Parameters**
 
 | Name    | Type| Description |
 | :-------- | :----------| :----------|
-| project | string | The project's name |
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
 
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| accepts | string | Available options are: **application/json**, **text/plain** |
+| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
+| dynamicSecretsTtlSec | number | The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes). |
+| secrets | string | A comma-separated list of secrets to include in the response |
+| includeManagedSecrets | boolean | Whether to include Doppler's auto-generated (managed) secrets |
 
 
 **Return Type**
 
-EnvironmentsListResponse
+SecretsListResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -476,11 +494,319 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.environments.list('project');
+  const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
+    accepts: 'application/json',
+    includeDynamicSecrets: true,
+    dynamicSecretsTtlSec: 36617222,
+    secrets: 'secrets',
+    includeManagedSecrets: true,
+  });
   console.log(result);
 })();
 
 ```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/secret
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+| name | string | Name of the secret. |
+
+
+
+**Return Type**
+
+SecretsGetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.secrets.get('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
+  console.log(result);
+})();
+
+```
+
+### **delete**
+Delete
+- HTTP Method: DELETE
+- Endpoint: /v3/configs/config/secret
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+| name | string | Name of the secret. |
+
+
+
+**Return Type**
+
+Returns a dict object.
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.secrets.delete('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
+  console.log(result);
+})();
+
+```
+
+### **download**
+Download
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/secrets/download
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. Not required if using a Service Token. |
+| config | string | Name of the config object. Not required if using a Service Token. |
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| format | [Format](/src/models/README.md#format) |  |
+| nameTransformer | [NameTransformer](/src/models/README.md#nametransformer) | Transform secret names to a different case |
+| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
+| dynamicSecretsTtlSec | number | The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes). |
+
+
+**Return Type**
+
+DownloadResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.secrets.download('project', 'config', {
+    format: 'json',
+    nameTransformer: 'dotnet-env',
+    includeDynamicSecrets: true,
+    dynamicSecretsTtlSec: 1800,
+  });
+  console.log(result);
+})();
+
+```
+
+### **names**
+List Names
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/secrets/names
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
+| includeManagedSecrets | boolean | Whether to include Doppler's auto-generated (managed) secrets |
+
+
+**Return Type**
+
+NamesResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.secrets.names('PROJECT_NAME', 'CONFIG_NAME', {
+    includeDynamicSecrets: true,
+    includeManagedSecrets: true,
+  });
+  console.log(result);
+})();
+
+```
+
+### **updateNote**
+Update Note
+- HTTP Method: POST
+- Endpoint: /v3/configs/config/secrets/note
+
+**Required Parameters**
+
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+UpdateNoteResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { config: 'CONFIG_NAME', note: 'note', project: 'PROJECT_NAME', secret: 'secret' };
+  const result = await sdk.secrets.updateNote(input);
+  console.log(result);
+})();
+
+```
+
+
+### **list**
+List
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/logs
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| page | number | Page number |
+| perPage | number | Items per page |
+
+
+**Return Type**
+
+ConfigLogsListResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.configLogs.list('PROJECT_NAME', 'CONFIG_NAME', { page: 1, perPage: 20 });
+  console.log(result);
+})();
+
+```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/configs/config/logs/log
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+| log | string | Unique identifier for the log object. |
+
+
+
+**Return Type**
+
+GetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.configLogs.get('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
+  console.log(result);
+})();
+
+```
+
+### **rollback**
+Rollback
+- HTTP Method: POST
+- Endpoint: /v3/configs/config/logs/log/rollback
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | Unique identifier for the project object. |
+| config | string | Name of the config object. |
+| log | string | Unique identifier for the log object. |
+
+
+
+**Return Type**
+
+RollbackResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.configLogs.rollback('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
+  console.log(result);
+})();
+
+```
+
 
 ### **get**
 Retrieve
@@ -578,6 +904,72 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = { name: 'name', slug: 'slug' };
   const result = await sdk.environments.rename(input, 'project', 'environment');
+  console.log(result);
+})();
+
+```
+
+### **create**
+Create
+- HTTP Method: POST
+- Endpoint: /v3/environments
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | The project's name |
+| input | object | Request body. |
+
+
+
+**Return Type**
+
+EnvironmentsCreateResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const input = { name: 'name', slug: 'slug' };
+  const result = await sdk.environments.create(input, 'project');
+  console.log(result);
+})();
+
+```
+
+### **list**
+List
+- HTTP Method: GET
+- Endpoint: /v3/environments
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| project | string | The project's name |
+
+
+
+**Return Type**
+
+EnvironmentsListResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.environments.list('project');
   console.log(result);
 })();
 
@@ -952,346 +1344,22 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 ```
 
 
-### **update**
-Update
-- HTTP Method: POST
-- Endpoint: /v3/configs/config/secrets
-
-**Required Parameters**
-
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-SecretsUpdateResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const input = {
-    config: 'CONFIG_NAME',
-    project: 'PROJECT_NAME',
-    secrets: {
-      ALGOLIA: 'N9TOPUCTO',
-      DATABASE: '${USER}@aws.dynamodb.com:9876',
-      STRIPE: 'sk_test_9YxLnoLDdvOPn2dfjBVPB',
-    },
-  };
-  const result = await sdk.secrets.update(input);
-  console.log(result);
-})();
-
-```
-
-### **list**
-List
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/secrets
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| accepts | string | Available options are: **application/json**, **text/plain** |
-| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
-| dynamicSecretsTtlSec | number | The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes). |
-| secrets | string | A comma-separated list of secrets to include in the response |
-| includeManagedSecrets | boolean | Whether to include Doppler's auto-generated (managed) secrets |
-
-
-**Return Type**
-
-SecretsListResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
-    accepts: 'application/json',
-    includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 25735424,
-    secrets: 'secrets',
-    includeManagedSecrets: true,
-  });
-  console.log(result);
-})();
-
-```
-
-### **get**
+### **retrieve**
 Retrieve
 - HTTP Method: GET
-- Endpoint: /v3/configs/config/secret
+- Endpoint: /v3/logs/log
 
 **Required Parameters**
 
 | Name    | Type| Description |
 | :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-| name | string | Name of the secret. |
-
-
-
-**Return Type**
-
-SecretsGetResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.secrets.get('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
-  console.log(result);
-})();
-
-```
-
-### **delete**
-Delete
-- HTTP Method: DELETE
-- Endpoint: /v3/configs/config/secret
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-| name | string | Name of the secret. |
-
-
-
-**Return Type**
-
-Returns a dict object.
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.secrets.delete('PROJECT_NAME', 'CONFIG_NAME', 'SECRET_NAME');
-  console.log(result);
-})();
-
-```
-
-### **download**
-Download
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/secrets/download
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. Not required if using a Service Token. |
-| config | string | Name of the config object. Not required if using a Service Token. |
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| format | [Format](/src/models/README.md#format) |  |
-| nameTransformer | [NameTransformer](/src/models/README.md#nametransformer) | Transform secret names to a different case |
-| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
-| dynamicSecretsTtlSec | number | The number of seconds until dynamic leases expire. Must be used with `include_dynamic_secrets`. Defaults to 1800 (30 minutes). |
-
-
-**Return Type**
-
-DownloadResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.secrets.download('project', 'config', {
-    format: 'json',
-    nameTransformer: 'camel',
-    includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: 1800,
-  });
-  console.log(result);
-})();
-
-```
-
-### **names**
-List Names
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/secrets/names
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| includeDynamicSecrets | boolean | Whether or not to issue leases and include dynamic secret values for the config |
-| includeManagedSecrets | boolean | Whether to include Doppler's auto-generated (managed) secrets |
-
-
-**Return Type**
-
-NamesResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.secrets.names('PROJECT_NAME', 'CONFIG_NAME', {
-    includeDynamicSecrets: true,
-    includeManagedSecrets: true,
-  });
-  console.log(result);
-})();
-
-```
-
-### **updateNote**
-Update Note
-- HTTP Method: POST
-- Endpoint: /v3/configs/config/secrets/note
-
-**Required Parameters**
-
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-UpdateNoteResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const input = { config: 'CONFIG_NAME', note: 'note', project: 'PROJECT_NAME', secret: 'secret' };
-  const result = await sdk.secrets.updateNote(input);
-  console.log(result);
-})();
-
-```
-
-
-### **list**
-List
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/logs
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| page | number | Page number |
-| perPage | number | Items per page |
-
-
-**Return Type**
-
-ConfigLogsListResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.configLogs.list('PROJECT_NAME', 'CONFIG_NAME', { page: 1, perPage: 20 });
-  console.log(result);
-})();
-
-```
-
-### **get**
-Retrieve
-- HTTP Method: GET
-- Endpoint: /v3/configs/config/logs/log
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
 | log | string | Unique identifier for the log object. |
 
 
 
 **Return Type**
 
-ConfigLogsGetResponse
+RetrieveResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1302,112 +1370,11 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.configLogs.get('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
+  const result = await sdk.activityLogs.retrieve('LOG_ID');
   console.log(result);
 })();
 
 ```
-
-### **rollback**
-Rollback
-- HTTP Method: POST
-- Endpoint: /v3/configs/config/logs/log/rollback
-
-**Required Parameters**
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| project | string | Unique identifier for the project object. |
-| config | string | Name of the config object. |
-| log | string | Unique identifier for the log object. |
-
-
-
-**Return Type**
-
-RollbackResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.configLogs.rollback('PROJECT_NAME', 'CONFIG_NAME', 'LOG_ID');
-  console.log(result);
-})();
-
-```
-
-
-### **update**
-Update
-- HTTP Method: POST
-- Endpoint: /v3/workplace
-
-**Required Parameters**
-
-| input | object | Request body. |
-
-
-
-**Return Type**
-
-WorkplaceUpdateResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const input = { billing_email: 'billing_email', name: 'name' };
-  const result = await sdk.workplace.update(input);
-  console.log(result);
-})();
-
-```
-
-### **get**
-Retrieve
-- HTTP Method: GET
-- Endpoint: /v3/workplace
-
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| settings | boolean | If true, the api will return more information if the workplace has e.g. SAML enabled and SCIM enabled |
-
-
-**Return Type**
-
-WorkplaceGetResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.workplace.get({ settings: true });
-  console.log(result);
-})();
-
-```
-
 
 ### **list**
 List
@@ -1444,22 +1411,21 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 ```
 
-### **retrieve**
-Retrieve
-- HTTP Method: GET
-- Endpoint: /v3/logs/log
+
+### **update**
+Update
+- HTTP Method: POST
+- Endpoint: /v3/workplace
 
 **Required Parameters**
 
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| log | string | Unique identifier for the log object. |
+| input | object | Request body. |
 
 
 
 **Return Type**
 
-RetrieveResponse
+WorkplaceUpdateResponse
 
 **Example Usage Code Snippet**
 ```Typescript
@@ -1470,7 +1436,33 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.activityLogs.retrieve('LOG_ID');
+  const input = { billing_email: 'billing_email', name: 'name', security_email: 'security_email' };
+  const result = await sdk.workplace.update(input);
+  console.log(result);
+})();
+
+```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/workplace
+
+
+**Return Type**
+
+WorkplaceGetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.workplace.get();
   console.log(result);
 })();
 
@@ -1504,7 +1496,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
   const input = {
     access: 'read',
     config: 'CONFIG_NAME',
-    expire_at: '1926-02-24T15:16:51.0Z',
+    expire_at: '1945-07-17T01:43:48.0Z',
     name: 'TOKEN_NAME',
     project: 'PROJECT_NAME',
   };
@@ -1584,41 +1576,6 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 ```
 
 
-### **getUsers**
-Workplace Users
-- HTTP Method: GET
-- Endpoint: /v3/workplace/users
-
-
-**Optional Parameters**
-
-Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
-
-| Name    | Type| Description |
-| :-------- | :----------| :----------|
-| settings | boolean | If true, the api will return more information if users have e.g. SAML enabled and/or Multi Factor Auth enabled |
-| page | number | The page of users to fetch |
-
-
-**Return Type**
-
-GetUsersResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.audit.getUsers({ settings: true, page: 1 });
-  console.log(result);
-})();
-
-```
-
 ### **getUser**
 Workplace User
 - HTTP Method: GET
@@ -1687,7 +1644,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     config: 'config',
     dynamic_secret: 'dynamic_secret',
     project: 'project',
-    ttl_sec: 64397939,
+    ttl_sec: -77490487,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -1758,6 +1715,31 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = { token: 'token' };
   const result = await sdk.auth.revoke(input);
+  console.log(result);
+})();
+
+```
+
+### **me**
+Me
+- HTTP Method: GET
+- Endpoint: /v3/me
+
+
+**Return Type**
+
+MeResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.auth.me();
   console.log(result);
 })();
 
@@ -2018,32 +2000,6 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.syncs.delete('project', 'config', 'sync', true);
-  console.log(result);
-})();
-
-```
-
-
-### **me**
-Me
-- HTTP Method: GET
-- Endpoint: /v3/me
-
-
-**Return Type**
-
-MeResponse
-
-**Example Usage Code Snippet**
-```Typescript
-import { DopplerSDK } from './src';
-
-const DOPPLERSDK_ACCESS_TOKEN = '';
-
-const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
-
-(async () => {
-  const result = await sdk.v3.me();
   console.log(result);
 })();
 
@@ -2422,10 +2378,10 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
-    environments: ['elit est', 'minim magna'],
+    environments: ['ullamco reprehenderit tempor incididunt', 'adipisicing anim nulla in'],
     role: 'role',
     slug: 'slug',
-    type_: 'group',
+    type_: 'workplace_user',
   };
   const result = await sdk.projectMembers.add(input, 'project');
   console.log(result);
@@ -2536,8 +2492,8 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { environments: ['est ut', 'voluptate amet in consequat commodo'], role: 'role' };
-  const result = await sdk.projectMembers.update(input, 'service_account', 'slug', 'project');
+  const input = { environments: ['et tempor', 'sit'], role: 'role' };
+  const result = await sdk.projectMembers.update(input, 'workplace_user', 'slug', 'project');
   console.log(result);
 })();
 
@@ -2640,7 +2596,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = {
     name: 'name',
-    workplace_role: { identifier: 'identifier', permissions: ['in ullamco commodo', 'labore in'] },
+    workplace_role: { identifier: 'identifier', permissions: ['consectetur', 'dolor adipisicing'] },
   };
   const result = await sdk.serviceAccounts.create(input);
   console.log(result);
@@ -2746,7 +2702,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     name: 'name',
     workplace_role: {
       identifier: 'identifier',
-      permissions: ['deserunt Ut sunt et ut', 'eu ea laborum consectetur'],
+      permissions: ['consectetur sed', 'ullamco nostrud nisi exercitation labore'],
     },
   };
   const result = await sdk.serviceAccounts.update(input, 'slug');
@@ -3015,6 +2971,73 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const result = await sdk.groups.deleteMember('slug', 'workplace_user', 'member_slug');
+  console.log(result);
+})();
+
+```
+
+
+### **list**
+List
+- HTTP Method: GET
+- Endpoint: /v3/workplace/users
+
+
+**Optional Parameters**
+
+Optional parameters are passed as part of the last parameter to the method. Ex. {optionalParam1 : 'value1', optionalParam2: 'value2'}
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| page | number | The page of users to fetch |
+
+
+**Return Type**
+
+UsersListResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.users.list({ page: 1 });
+  console.log(result);
+})();
+
+```
+
+### **get**
+Retrieve
+- HTTP Method: GET
+- Endpoint: /v3/workplace/users/{slug}
+
+**Required Parameters**
+
+| Name    | Type| Description |
+| :-------- | :----------| :----------|
+| slug | string | The slug of the workplace user |
+
+
+
+**Return Type**
+
+UsersGetResponse
+
+**Example Usage Code Snippet**
+```Typescript
+import { DopplerSDK } from './src';
+
+const DOPPLERSDK_ACCESS_TOKEN = '';
+
+const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
+
+(async () => {
+  const result = await sdk.users.get('slug');
   console.log(result);
 })();
 

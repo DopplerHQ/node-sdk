@@ -22,10 +22,10 @@ describe('test ServiceAccounts', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/service_accounts?page=2&per_page=6')
+        .get('/v3/workplace/service_accounts?page=3&per_page=4')
         .reply(200, { data: {} });
       return sdk.serviceAccounts
-        .list({ page: 2, perPage: 6 })
+        .list({ page: 3, perPage: 4 })
         .then((r: any) => expect(r.data).toEqual({}));
     });
   });
@@ -42,71 +42,71 @@ describe('test ServiceAccounts', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/service_accounts/service_account/accusamus')
+        .get('/v3/workplace/service_accounts/service_account/qui')
         .reply(200, { data: {} });
-      return sdk.serviceAccounts.get('accusamus').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.serviceAccounts.get('qui').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/service_accounts/service_account/perferendis')
+        .get('/v3/workplace/service_accounts/service_account/porro')
         .reply(200, { data: {} });
       return expect(async () => await sdk.serviceAccounts.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/service_accounts/service_account/repellat')
+        .get('/v3/workplace/service_accounts/service_account/inventore')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.serviceAccounts.get('repellat')).rejects.toThrow();
+      return expect(async () => await sdk.serviceAccounts.get('inventore')).rejects.toThrow();
     });
   });
 
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/service_accounts/service_account/nostrum')
+        .delete('/v3/workplace/service_accounts/service_account/repellendus')
         .reply(200, { data: {} });
-      return sdk.serviceAccounts.delete('nostrum').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.serviceAccounts.delete('repellendus').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/service_accounts/service_account/facere')
+        .delete('/v3/workplace/service_accounts/service_account/modi')
         .reply(200, { data: {} });
       return expect(async () => await sdk.serviceAccounts.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/workplace/service_accounts/service_account/labore')
+        .delete('/v3/workplace/service_accounts/service_account/iusto')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.serviceAccounts.delete('labore')).rejects.toThrow();
+      return expect(async () => await sdk.serviceAccounts.delete('iusto')).rejects.toThrow();
     });
   });
 
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/service_accounts/service_account/blanditiis')
+        .patch('/v3/workplace/service_accounts/service_account/deleniti')
         .reply(200, { data: {} });
       return sdk.serviceAccounts
-        .update({}, 'blanditiis')
+        .update({}, 'deleniti')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/service_accounts/service_account/officiis')
+        .patch('/v3/workplace/service_accounts/service_account/totam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.serviceAccounts.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/workplace/service_accounts/service_account/ducimus')
+        .patch('/v3/workplace/service_accounts/service_account/ea')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.serviceAccounts.update({}, 'ducimus')).rejects.toThrow();
+      return expect(async () => await sdk.serviceAccounts.update({}, 'ea')).rejects.toThrow();
     });
   });
 });
