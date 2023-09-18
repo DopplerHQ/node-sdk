@@ -2,9 +2,6 @@
 
 Doppler's SDK for Node provides convenient access to the Doppler API from applications written in JavaScript or TypeScript. 
 
-- API version: 3
-- SDK version: 1.1.3
-
 ## Installation
 
 ```sh
