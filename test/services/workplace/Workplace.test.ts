@@ -21,10 +21,8 @@ describe('test Workplace', () => {
 
   describe('test get', () => {
     test('test api call', () => {
-      const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace?settings=true')
-        .reply(200, { data: {} });
-      return sdk.workplace.get({ settings: true }).then((r: any) => expect(r.data).toEqual({}));
+      const scope = nock('https://api.doppler.com').get('/v3/workplace').reply(200, { data: {} });
+      return sdk.workplace.get().then((r: any) => expect(r.data).toEqual({}));
     });
   });
 

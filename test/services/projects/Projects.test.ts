@@ -19,26 +19,44 @@ describe('test Projects', () => {
     nock.cleanAll();
   });
 
+  describe('test list', () => {
+    test('test api call', () => {
+      const scope = nock('https://api.doppler.com')
+        .get('/v3/projects?page=7&per_page=1')
+        .reply(200, { data: {} });
+      return sdk.projects
+        .list({ page: 7, perPage: 1 })
+        .then((r: any) => expect(r.data).toEqual({}));
+    });
+  });
+
+  describe('test create', () => {
+    test('test api call', () => {
+      const scope = nock('https://api.doppler.com').post('/v3/projects').reply(200, { data: {} });
+      return sdk.projects.create({}).then((r: any) => expect(r.data).toEqual({}));
+    });
+  });
+
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=quam')
+        .get('/v3/projects/project?project=autem')
         .reply(200, { data: {} });
-      return sdk.projects.get('quam').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projects.get('autem').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=veniam')
+        .get('/v3/projects/project?project=ullam')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projects.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project?project=eaque')
+        .get('/v3/projects/project?project=eum')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projects.get('eaque')).rejects.toThrow();
+      return expect(async () => await sdk.projects.get('eum')).rejects.toThrow();
     });
   });
 
@@ -57,24 +75,6 @@ describe('test Projects', () => {
         .delete('/v3/projects/project')
         .reply(200, { data: {} });
       return sdk.projects.delete({}).then((r: any) => expect(r.data).toEqual({}));
-    });
-  });
-
-  describe('test list', () => {
-    test('test api call', () => {
-      const scope = nock('https://api.doppler.com')
-        .get('/v3/projects?page=1&per_page=4')
-        .reply(200, { data: {} });
-      return sdk.projects
-        .list({ page: 1, perPage: 4 })
-        .then((r: any) => expect(r.data).toEqual({}));
-    });
-  });
-
-  describe('test create', () => {
-    test('test api call', () => {
-      const scope = nock('https://api.doppler.com').post('/v3/projects').reply(200, { data: {} });
-      return sdk.projects.create({}).then((r: any) => expect(r.data).toEqual({}));
     });
   });
 });

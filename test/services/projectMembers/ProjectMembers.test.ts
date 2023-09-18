@@ -22,26 +22,26 @@ describe('test ProjectMembers', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members?project=ducimus&page=7&per_page=9')
+        .get('/v3/projects/project/members?project=hic&page=2&per_page=5')
         .reply(200, { data: {} });
       return sdk.projectMembers
-        .list('ducimus', { page: 7, perPage: 9 })
+        .list('hic', { page: 2, perPage: 5 })
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members?project=at&page=7&per_page=5')
+        .get('/v3/projects/project/members?project=enim&page=8&per_page=1')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectMembers.list()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members?project=deleniti&page=1&per_page=5')
+        .get('/v3/projects/project/members?project=vitae&page=9&per_page=3')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.projectMembers.list('deleniti', { page: 1, perPage: 5 }),
+        async () => await sdk.projectMembers.list('vitae', { page: 9, perPage: 3 }),
       ).rejects.toThrow();
     });
   });
@@ -49,49 +49,49 @@ describe('test ProjectMembers', () => {
   describe('test add', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/projects/project/members?project=accusantium')
+        .post('/v3/projects/project/members?project=placeat')
         .reply(200, { data: {} });
-      return sdk.projectMembers.add({}, 'accusantium').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.projectMembers.add({}, 'placeat').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/projects/project/members?project=natus')
+        .post('/v3/projects/project/members?project=facilis')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectMembers.add()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/projects/project/members?project=recusandae')
+        .post('/v3/projects/project/members?project=magnam')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.projectMembers.add({}, 'recusandae')).rejects.toThrow();
+      return expect(async () => await sdk.projectMembers.add({}, 'magnam')).rejects.toThrow();
     });
   });
 
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members/member/%7Btype%7D/veniam?project=dolores')
+        .get('/v3/projects/project/members/member/%7Btype%7D/ducimus?project=eaque')
         .reply(200, { data: {} });
       return sdk.projectMembers
-        .get('dolores', 'quibusdam', 'veniam')
+        .get('eaque', 'tempore', 'ducimus')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members/member/%7Btype%7D/quibusdam?project=delectus')
+        .get('/v3/projects/project/members/member/%7Btype%7D/rerum?project=recusandae')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectMembers.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members/member/%7Btype%7D/incidunt?project=explicabo')
+        .get('/v3/projects/project/members/member/%7Btype%7D/itaque?project=nobis')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.projectMembers.get('explicabo', 'eligendi', 'incidunt'),
+        async () => await sdk.projectMembers.get('nobis', 'ratione', 'itaque'),
       ).rejects.toThrow();
     });
   });
@@ -99,26 +99,26 @@ describe('test ProjectMembers', () => {
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/project/members/member/%7Btype%7D/incidunt?project=non')
+        .delete('/v3/projects/project/members/member/%7Btype%7D/magnam?project=quae')
         .reply(200, { data: {} });
       return sdk.projectMembers
-        .delete('quos', 'incidunt', 'non')
+        .delete('exercitationem', 'magnam', 'quae')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/project/members/member/%7Btype%7D/ullam?project=ipsum')
+        .delete('/v3/projects/project/members/member/%7Btype%7D/voluptates?project=expedita')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectMembers.delete()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/project/members/member/%7Btype%7D/nam?project=quod')
+        .delete('/v3/projects/project/members/member/%7Btype%7D/quidem?project=consequatur')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.projectMembers.delete('doloribus', 'nam', 'quod'),
+        async () => await sdk.projectMembers.delete('dicta', 'quidem', 'consequatur'),
       ).rejects.toThrow();
     });
   });
@@ -126,26 +126,26 @@ describe('test ProjectMembers', () => {
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/project/members/member/%7Btype%7D/cupiditate?project=blanditiis')
+        .patch('/v3/projects/project/members/member/%7Btype%7D/maiores?project=eaque')
         .reply(200, { data: {} });
       return sdk.projectMembers
-        .update({}, 'nulla', 'cupiditate', 'blanditiis')
+        .update({}, 'animi', 'maiores', 'eaque')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/project/members/member/%7Btype%7D/officiis?project=ea')
+        .patch('/v3/projects/project/members/member/%7Btype%7D/dolorem?project=excepturi')
         .reply(200, { data: {} });
       return expect(async () => await sdk.projectMembers.update()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/project/members/member/%7Btype%7D/nesciunt?project=libero')
+        .patch('/v3/projects/project/members/member/%7Btype%7D/provident?project=laborum')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.projectMembers.update({}, 'asperiores', 'nesciunt', 'libero'),
+        async () => await sdk.projectMembers.update({}, 'aut', 'provident', 'laborum'),
       ).rejects.toThrow();
     });
   });
