@@ -22,24 +22,24 @@ describe('test Syncs', () => {
   describe('test create', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/configs/config/syncs?project=qui&config=tempora')
+        .post('/v3/configs/config/syncs?project=sint&config=repellat')
         .reply(200, { data: {} });
-      return sdk.syncs.create({}, 'qui', 'tempora').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.syncs.create({}, 'sint', 'repellat').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/configs/config/syncs?project=voluptates&config=adipisci')
+        .post('/v3/configs/config/syncs?project=quos&config=cupiditate')
         .reply(200, { data: {} });
       return expect(async () => await sdk.syncs.create()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .post('/v3/configs/config/syncs?project=consequuntur&config=quibusdam')
+        .post('/v3/configs/config/syncs?project=necessitatibus&config=harum')
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.syncs.create({}, 'consequuntur', 'quibusdam'),
+        async () => await sdk.syncs.create({}, 'necessitatibus', 'harum'),
       ).rejects.toThrow();
     });
   });
@@ -47,23 +47,27 @@ describe('test Syncs', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/syncs/sync?project=cum&config=modi&sync=eius')
+        .get('/v3/configs/config/syncs/sync?project=veritatis&config=adipisci&sync=aspernatur')
         .reply(200, { data: {} });
-      return sdk.syncs.get('cum', 'modi', 'eius').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.syncs
+        .get('veritatis', 'adipisci', 'aspernatur')
+        .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/syncs/sync?project=illo&config=ipsum&sync=in')
+        .get('/v3/configs/config/syncs/sync?project=voluptas&config=animi&sync=deleniti')
         .reply(200, { data: {} });
       return expect(async () => await sdk.syncs.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/syncs/sync?project=eos&config=laudantium&sync=modi')
+        .get('/v3/configs/config/syncs/sync?project=maxime&config=inventore&sync=voluptatum')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.syncs.get('eos', 'laudantium', 'modi')).rejects.toThrow();
+      return expect(
+        async () => await sdk.syncs.get('maxime', 'inventore', 'voluptatum'),
+      ).rejects.toThrow();
     });
   });
 
@@ -71,18 +75,18 @@ describe('test Syncs', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
         .delete(
-          '/v3/configs/config/syncs/sync?project=adipisci&config=minus&sync=quod&delete_from_target=true',
+          '/v3/configs/config/syncs/sync?project=magni&config=aperiam&sync=suscipit&delete_from_target=true',
         )
         .reply(200, { data: {} });
       return sdk.syncs
-        .delete('adipisci', 'minus', 'quod', true)
+        .delete('magni', 'aperiam', 'suscipit', true)
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
         .delete(
-          '/v3/configs/config/syncs/sync?project=illo&config=architecto&sync=consequatur&delete_from_target=true',
+          '/v3/configs/config/syncs/sync?project=autem&config=quidem&sync=eum&delete_from_target=true',
         )
         .reply(200, { data: {} });
       return expect(async () => await sdk.syncs.delete()).rejects.toThrow();
@@ -91,11 +95,11 @@ describe('test Syncs', () => {
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
         .delete(
-          '/v3/configs/config/syncs/sync?project=illo&config=soluta&sync=consequuntur&delete_from_target=true',
+          '/v3/configs/config/syncs/sync?project=quidem&config=dolore&sync=molestiae&delete_from_target=true',
         )
         .reply(404, { data: {} });
       return expect(
-        async () => await sdk.syncs.delete('illo', 'soluta', 'consequuntur', true),
+        async () => await sdk.syncs.delete('quidem', 'dolore', 'molestiae', true),
       ).rejects.toThrow();
     });
   });

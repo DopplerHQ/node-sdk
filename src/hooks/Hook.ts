@@ -15,5 +15,5 @@ export interface Hook {
 
   afterResponse(request: Request, response: Response): Promise<void>;
 
-  afterError(error: object): Promise<void>;
+  onError(error: object): Promise<void>;
 }

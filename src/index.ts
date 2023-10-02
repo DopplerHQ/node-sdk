@@ -1,10 +1,10 @@
 import { ProjectsService } from './services/projects/Projects';
-import { SecretsService } from './services/secrets/Secrets';
-import { ConfigLogsService } from './services/configLogs/ConfigLogs';
 import { EnvironmentsService } from './services/environments/Environments';
 import { ConfigsService } from './services/configs/Configs';
-import { ActivityLogsService } from './services/activityLogs/ActivityLogs';
+import { SecretsService } from './services/secrets/Secrets';
+import { ConfigLogsService } from './services/configLogs/ConfigLogs';
 import { WorkplaceService } from './services/workplace/Workplace';
+import { ActivityLogsService } from './services/activityLogs/ActivityLogs';
 import { ServiceTokensService } from './services/serviceTokens/ServiceTokens';
 import { AuditService } from './services/audit/Audit';
 import { DynamicSecretsService } from './services/dynamicSecrets/DynamicSecrets';
@@ -25,12 +25,12 @@ export * as SecretsModels from './services/secrets';
 export * as ProjectMembersModels from './services/projectMembers';
 export * as GroupsModels from './services/groups';
 export * as ProjectsModels from './services/projects';
-export * as ConfigLogsModels from './services/configLogs';
 export * as EnvironmentsModels from './services/environments';
 export * as ConfigsModels from './services/configs';
 export * as ServiceTokensModels from './services/serviceTokens';
-export * as ActivityLogsModels from './services/activityLogs';
+export * as ConfigLogsModels from './services/configLogs';
 export * as WorkplaceModels from './services/workplace';
+export * as ActivityLogsModels from './services/activityLogs';
 export * as AuditModels from './services/audit';
 export * as DynamicSecretsModels from './services/dynamicSecrets';
 export * as IntegrationsModels from './services/integrations';
@@ -48,12 +48,12 @@ type Config = {
 
 export class DopplerSDK {
   public projects: ProjectsService;
-  public secrets: SecretsService;
-  public configLogs: ConfigLogsService;
   public environments: EnvironmentsService;
   public configs: ConfigsService;
-  public activityLogs: ActivityLogsService;
+  public secrets: SecretsService;
+  public configLogs: ConfigLogsService;
   public workplace: WorkplaceService;
+  public activityLogs: ActivityLogsService;
   public serviceTokens: ServiceTokensService;
   public audit: AuditService;
   public dynamicSecrets: DynamicSecretsService;
@@ -70,12 +70,12 @@ export class DopplerSDK {
 
   constructor({ accessToken = '' }: Config) {
     this.projects = new ProjectsService(accessToken);
-    this.secrets = new SecretsService(accessToken);
-    this.configLogs = new ConfigLogsService(accessToken);
     this.environments = new EnvironmentsService(accessToken);
     this.configs = new ConfigsService(accessToken);
-    this.activityLogs = new ActivityLogsService(accessToken);
+    this.secrets = new SecretsService(accessToken);
+    this.configLogs = new ConfigLogsService(accessToken);
     this.workplace = new WorkplaceService(accessToken);
+    this.activityLogs = new ActivityLogsService(accessToken);
     this.serviceTokens = new ServiceTokensService(accessToken);
     this.audit = new AuditService(accessToken);
     this.dynamicSecrets = new DynamicSecretsService(accessToken);
@@ -93,12 +93,12 @@ export class DopplerSDK {
 
   setBaseUrl(url: string): void {
     this.projects.setBaseUrl(url);
-    this.secrets.setBaseUrl(url);
-    this.configLogs.setBaseUrl(url);
     this.environments.setBaseUrl(url);
     this.configs.setBaseUrl(url);
-    this.activityLogs.setBaseUrl(url);
+    this.secrets.setBaseUrl(url);
+    this.configLogs.setBaseUrl(url);
     this.workplace.setBaseUrl(url);
+    this.activityLogs.setBaseUrl(url);
     this.serviceTokens.setBaseUrl(url);
     this.audit.setBaseUrl(url);
     this.dynamicSecrets.setBaseUrl(url);
@@ -116,12 +116,12 @@ export class DopplerSDK {
 
   setAccessToken(accessToken: string) {
     this.projects.setAccessToken(accessToken);
-    this.secrets.setAccessToken(accessToken);
-    this.configLogs.setAccessToken(accessToken);
     this.environments.setAccessToken(accessToken);
     this.configs.setAccessToken(accessToken);
-    this.activityLogs.setAccessToken(accessToken);
+    this.secrets.setAccessToken(accessToken);
+    this.configLogs.setAccessToken(accessToken);
     this.workplace.setAccessToken(accessToken);
+    this.activityLogs.setAccessToken(accessToken);
     this.serviceTokens.setAccessToken(accessToken);
     this.audit.setAccessToken(accessToken);
     this.dynamicSecrets.setAccessToken(accessToken);

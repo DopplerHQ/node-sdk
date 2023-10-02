@@ -1,8 +1,8 @@
 import BaseService from '../../BaseService';
 
 import { SecretsListResponse } from './models/SecretsListResponse';
-import { UpdateResponse } from './models/UpdateResponse';
-import { UpdateRequest } from './models/UpdateRequest';
+import { SecretsUpdateResponse } from './models/SecretsUpdateResponse';
+import { SecretsUpdateRequest } from './models/SecretsUpdateRequest';
 import { SecretsGetResponse } from './models/SecretsGetResponse';
 import { Format } from './models/Format';
 import { NameTransformer } from './models/NameTransformer';
@@ -95,9 +95,9 @@ export class SecretsService extends BaseService {
    * @summary Update
    * @description Secrets
 
-   * @returns {Promise<UpdateResponse>} - The promise with the result
+   * @returns {Promise<SecretsUpdateResponse>} - The promise with the result
    */
-  async update(input: UpdateRequest): Promise<UpdateResponse> {
+  async update(input: SecretsUpdateRequest): Promise<SecretsUpdateResponse> {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     const urlEndpoint = '/v3/configs/config/secrets';
     const finalUrl = `${this.baseUrl + urlEndpoint}`;
@@ -110,7 +110,7 @@ export class SecretsService extends BaseService {
       },
       true,
     );
-    const responseModel = response.data as UpdateResponse;
+    const responseModel = response.data as SecretsUpdateResponse;
     return responseModel;
   }
 

@@ -22,27 +22,25 @@ describe('test ServiceTokens', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/tokens?project=numquam&config=dolor')
+        .get('/v3/configs/config/tokens?project=maiores&config=nulla')
         .reply(200, { data: {} });
       return sdk.serviceTokens
-        .list('numquam', 'dolor')
+        .list('maiores', 'nulla')
         .then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/tokens?project=quisquam&config=quas')
+        .get('/v3/configs/config/tokens?project=ad&config=ab')
         .reply(200, { data: {} });
       return expect(async () => await sdk.serviceTokens.list()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/configs/config/tokens?project=illum&config=possimus')
+        .get('/v3/configs/config/tokens?project=quasi&config=nulla')
         .reply(404, { data: {} });
-      return expect(
-        async () => await sdk.serviceTokens.list('illum', 'possimus'),
-      ).rejects.toThrow();
+      return expect(async () => await sdk.serviceTokens.list('quasi', 'nulla')).rejects.toThrow();
     });
   });
 
