@@ -28,24 +28,24 @@ const styleMethods: Record<string, Function> = {
   },
 
   form: (parameterName: string, parameterValue: unknown, explode: boolean) => {
-    // Check if the value is an array
+    // Check if the parameterValue is an array
     if (Array.isArray(parameterValue)) {
       return explode
-        ? parameterValue.map((parameterValue) => `${parameterName}=${parameterValue}`).join('&')
+        ? parameterValue.map((value) => `${parameterName}=${value}`).join('&')
         : `${parameterName}=${parameterValue.join(',')}`;
     }
 
-    // Check if the value is an object
+    // Check if the parameterValue is an object
     if (typeof parameterValue === 'object' && parameterValue !== null) {
       if (explode) {
         // Serialize object with exploded format: "key1=value1&key2=value2"
         return Object.entries(parameterValue)
-          .map(([parameterName, parameterValue]) => `${parameterName}=${parameterValue}`)
+          .map(([name, value]) => `${name}=${value}`)
           .join('&');
       }
       // Serialize object with non-exploded format: "key=key1,value1,key2,value2"
       return `${parameterName}=${Object.entries(parameterValue)
-        .flatMap(([parameterName, parameterValue]) => [parameterName, parameterValue])
+        .flatMap(([name, value]) => [name, value])
         .join(',')}`;
     }
 

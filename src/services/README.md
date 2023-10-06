@@ -497,7 +497,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
   const result = await sdk.secrets.list('PROJECT_NAME', 'CONFIG_NAME', {
     accepts: 'application/json',
     includeDynamicSecrets: true,
-    dynamicSecretsTtlSec: -63740284,
+    dynamicSecretsTtlSec: 5981844,
     secrets: 'secrets',
     includeManagedSecrets: true,
   });
@@ -613,7 +613,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const result = await sdk.secrets.download('project', 'config', {
     format: 'json',
-    nameTransformer: 'upper-camel',
+    nameTransformer: 'tf-var',
     includeDynamicSecrets: true,
     dynamicSecretsTtlSec: 1800,
   });
@@ -1496,7 +1496,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
   const input = {
     access: 'read',
     config: 'CONFIG_NAME',
-    expire_at: '1927-01-04T13:49:20.0Z',
+    expire_at: '1917-12-19T14:26:36.0Z',
     name: 'TOKEN_NAME',
     project: 'PROJECT_NAME',
   };
@@ -1644,7 +1644,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     config: 'config',
     dynamic_secret: 'dynamic_secret',
     project: 'project',
-    ttl_sec: -59680129,
+    ttl_sec: 39855496,
   };
   const result = await sdk.dynamicSecrets.issueLease(input);
   console.log(result);
@@ -2378,10 +2378,10 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
   const input = {
-    environments: ['culpa cupidatat', 'elit Lorem proident aliquip'],
+    environments: ['dolore in est exercitation esse', 'dolore sed sunt'],
     role: 'role',
     slug: 'slug',
-    type_: 'group',
+    type_: 'workplace_user',
   };
   const result = await sdk.projectMembers.add(input, 'project');
   console.log(result);
@@ -2457,7 +2457,7 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const result = await sdk.projectMembers.get('project', 'group', 'slug');
+  const result = await sdk.projectMembers.get('project', 'service_account', 'slug');
   console.log(result);
 })();
 
@@ -2492,7 +2492,10 @@ const DOPPLERSDK_ACCESS_TOKEN = '';
 const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 
 (async () => {
-  const input = { environments: ['minim', 'irure'], role: 'role' };
+  const input = {
+    environments: ['elit sint aliqua dolore', 'Excepteur voluptate exercitation'],
+    role: 'role',
+  };
   const result = await sdk.projectMembers.update(input, 'invite', 'slug', 'project');
   console.log(result);
 })();
@@ -2598,7 +2601,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
     name: 'name',
     workplace_role: {
       identifier: 'identifier',
-      permissions: ['commodo ipsum fugiat', 'aute incididunt enim deserunt'],
+      permissions: ['qui commodo quis cupidatat', 'reprehenderit veniam'],
     },
   };
   const result = await sdk.serviceAccounts.create(input);
@@ -2703,10 +2706,7 @@ const sdk = new DopplerSDK({ accessToken: DOPPLERSDK_ACCESS_TOKEN });
 (async () => {
   const input = {
     name: 'name',
-    workplace_role: {
-      identifier: 'identifier',
-      permissions: ['dolor pariatur officia', 'labore esse deserunt'],
-    },
+    workplace_role: { identifier: 'identifier', permissions: ['aliqua dolore ut Ut esse', 'do'] },
   };
   const result = await sdk.serviceAccounts.update(input, 'slug');
   console.log(result);

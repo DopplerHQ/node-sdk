@@ -22,32 +22,32 @@ describe('test Users', () => {
   describe('test list', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/users?page=2')
+        .get('/v3/workplace/users?page=5')
         .reply(200, { data: {} });
-      return sdk.users.list({ page: 2 }).then((r: any) => expect(r.data).toEqual({}));
+      return sdk.users.list({ page: 5 }).then((r: any) => expect(r.data).toEqual({}));
     });
   });
 
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/users/dignissimos')
+        .get('/v3/workplace/users/totam')
         .reply(200, { data: {} });
-      return sdk.users.get('dignissimos').then((r: any) => expect(r.data).toEqual({}));
+      return sdk.users.get('totam').then((r: any) => expect(r.data).toEqual({}));
     });
 
     test('test will throw error if required fields missing', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/users/dolore')
+        .get('/v3/workplace/users/architecto')
         .reply(200, { data: {} });
       return expect(async () => await sdk.users.get()).rejects.toThrow();
     });
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/workplace/users/labore')
+        .get('/v3/workplace/users/distinctio')
         .reply(404, { data: {} });
-      return expect(async () => await sdk.users.get('labore')).rejects.toThrow();
+      return expect(async () => await sdk.users.get('distinctio')).rejects.toThrow();
     });
   });
 });

@@ -11,7 +11,7 @@ interface Response {
 
 export default class HTTPLibrary implements HTTPClient {
   readonly userAgentHeader: Headers = {
-    'User-Agent': 'liblab/0.1.17 DopplerSDK/1.2.0 typescript/5.2.2',
+    'User-Agent': 'liblab/0.1.20 DopplerSDK/1.2.0 typescript/5.2.2',
   };
 
   readonly retryAttempts: number = 3;
@@ -232,7 +232,7 @@ export default class HTTPLibrary implements HTTPClient {
 
     const convertedObj: Record<string, any> = {};
     Object.entries(obj).forEach(([key, value]) => {
-      if (value) {
+      if (value !== undefined) {
         const convertedKey = jsonMapper.get(key) || key;
         convertedObj[convertedKey] = HTTPLibrary.convertKeysWithMapper(value, jsonMapper);
       }
