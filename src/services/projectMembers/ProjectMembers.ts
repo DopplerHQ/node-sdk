@@ -87,7 +87,7 @@ export class ProjectMembersService extends BaseService {
    * @summary Retrieve
 
    * @param project Project slug
-   * @param type_ Needed input variable
+   * @param type Needed input variable
    * @param slug Member's slug
    * @returns {Promise<ProjectMembersGetResponse>} - The promise with the result
    */
@@ -103,7 +103,7 @@ export class ProjectMembersService extends BaseService {
     }
     let urlEndpoint = '/v3/projects/project/members/member/{type}/{slug}';
     urlEndpoint = urlEndpoint.replace(
-      '{type_}',
+      '{type}',
       encodeURIComponent(serializePath('simple', false, type, undefined)),
     );
     urlEndpoint = urlEndpoint.replace(
@@ -126,7 +126,7 @@ export class ProjectMembersService extends BaseService {
   /**
    * @summary Update
 
-   * @param type_ Needed input variable
+   * @param type Needed input variable
    * @param slug Member's slug
    * @param project Project slug
    * @returns {Promise<ProjectMembersUpdateResponse>} - The promise with the result
@@ -146,7 +146,7 @@ export class ProjectMembersService extends BaseService {
     const headers: { [key: string]: string } = { 'Content-type': 'application/json' };
     let urlEndpoint = '/v3/projects/project/members/member/{type}/{slug}';
     urlEndpoint = urlEndpoint.replace(
-      '{type_}',
+      '{type}',
       encodeURIComponent(serializePath('simple', false, type, undefined)),
     );
     urlEndpoint = urlEndpoint.replace(
@@ -173,7 +173,7 @@ export class ProjectMembersService extends BaseService {
   /**
    * @summary Delete
 
-   * @param type_ Needed input variable
+   * @param type Needed input variable
    * @param slug Member's slug
    * @param project Project slug
    * @returns {Promise<any>} - The promise with the result

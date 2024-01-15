@@ -72,7 +72,7 @@ describe('test ProjectMembers', () => {
   describe('test get', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members/member/%7Btype%7D/officia?project=eligendi')
+        .get('/v3/projects/project/members/member/molestias/officia?project=eligendi')
         .reply(200, { data: {} });
       return sdk.projectMembers
         .get('eligendi', 'molestias', 'officia')
@@ -88,7 +88,7 @@ describe('test ProjectMembers', () => {
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .get('/v3/projects/project/members/member/%7Btype%7D/eaque?project=cumque')
+        .get('/v3/projects/project/members/member/esse/eaque?project=cumque')
         .reply(404, { data: {} });
       return expect(
         async () => await sdk.projectMembers.get('cumque', 'esse', 'eaque'),
@@ -126,7 +126,7 @@ describe('test ProjectMembers', () => {
   describe('test update', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/project/members/member/%7Btype%7D/molestias?project=magni')
+        .patch('/v3/projects/project/members/member/at/molestias?project=magni')
         .reply(200, { data: {} });
       return sdk.projectMembers
         .update({}, 'at', 'molestias', 'magni')
@@ -142,7 +142,7 @@ describe('test ProjectMembers', () => {
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .patch('/v3/projects/project/members/member/%7Btype%7D/esse?project=harum')
+        .patch('/v3/projects/project/members/member/pariatur/esse?project=harum')
         .reply(404, { data: {} });
       return expect(
         async () => await sdk.projectMembers.update({}, 'pariatur', 'esse', 'harum'),
