@@ -187,9 +187,10 @@ export class ProjectMembersService extends BaseService {
     const queryParams: string[] = [];
     let urlEndpoint = '/v3/projects/project/members/member/{type}/{slug}';
     urlEndpoint = urlEndpoint.replace(
-      '{type_}',
+      '{type}',
       encodeURIComponent(serializePath('simple', false, type, undefined)),
     );
+
     urlEndpoint = urlEndpoint.replace(
       '{slug}',
       encodeURIComponent(serializePath('simple', false, slug, undefined)),

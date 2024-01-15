@@ -99,7 +99,7 @@ describe('test ProjectMembers', () => {
   describe('test delete', () => {
     test('test api call', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/project/members/member/%7Btype%7D/quam?project=sunt')
+        .delete('/v3/projects/project/members/member/est/quam?project=sunt')
         .reply(200, { data: {} });
       return sdk.projectMembers
         .delete('est', 'quam', 'sunt')
@@ -115,7 +115,7 @@ describe('test ProjectMembers', () => {
 
     test('test will throw error on a non-200 response', () => {
       const scope = nock('https://api.doppler.com')
-        .delete('/v3/projects/project/members/member/%7Btype%7D/incidunt?project=quidem')
+        .delete('/v3/projects/project/members/member/repellat/incidunt?project=quidem')
         .reply(404, { data: {} });
       return expect(
         async () => await sdk.projectMembers.delete('repellat', 'incidunt', 'quidem'),
